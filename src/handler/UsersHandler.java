@@ -47,7 +47,7 @@ public class UsersHandler {
         orlando[8] = "orlandoecool";
         orlando[9] = "Schultz453!";
         Object[] pedro = new Object[10];
-        pedro[0] = 0;
+        pedro[0] = 1;
         pedro[1] = "Pedro";
         pedro[2] = "Rivera";
         pedro[3] = "M";
@@ -58,7 +58,7 @@ public class UsersHandler {
         pedro[8] = "pedroElDurako";
         pedro[9] = "Natalie678!";
         Object[] nicole = new Object[10];
-        nicole[0] = 0;
+        nicole[0] = 2;
         nicole[1] = "Nicole";
         nicole[2] = "Matos";
         nicole[3] = "F";
@@ -69,7 +69,7 @@ public class UsersHandler {
         nicole[8] = "nicoleIsWeird";
         nicole[9] = "Chad1222!";
         Object[] gilissa = new Object[10];
-        gilissa[0] = 0;
+        gilissa[0] = 3;
         gilissa[1] = "Gilissa";
         gilissa[2] = "Algo";
         gilissa[3] = "F";

@@ -1,4 +1,5 @@
 import handler.AdminsHandler;
+import handler.RequesterHandler;
 import handler.ResourcesHandler;
 import handler.UsersHandler;
 
@@ -18,6 +19,7 @@ public class Main {
 
     private static UsersHandler usrs = new UsersHandler();
     private static AdminsHandler admns = new AdminsHandler();
+    private static RequesterHandler rqstr = new RequesterHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
 
     public static void main(String[] args){
@@ -58,6 +60,20 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getAdminById(@PathParam("id") int id){
         return admns.getAdminById(id);
+    }
+
+    @GET
+    @Path("db_project/users/requesters")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllRequesters(){
+        return rqstr.getAllRequesters();
+    }
+
+    @GET
+    @Path("db_project/users/requesters/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getRequesterById(@PathParam("id") int id){
+        return rqstr.getRequesterId(id);
     }
 
     @GET
