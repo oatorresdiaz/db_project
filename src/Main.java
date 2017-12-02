@@ -1,7 +1,4 @@
-import handler.AdminsHandler;
-import handler.RequesterHandler;
-import handler.ResourcesHandler;
-import handler.UsersHandler;
+import handler.*;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,7 +16,8 @@ public class Main {
 
     private static UsersHandler usrs = new UsersHandler();
     private static AdminsHandler admns = new AdminsHandler();
-    private static RequesterHandler rqstr = new RequesterHandler();
+    private static SuppliersHandler spplrs = new SuppliersHandler();
+    private static RequestersHandler rqstr = new RequestersHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
 
     public static void main(String[] args){
@@ -50,7 +48,7 @@ public class Main {
     @Path("db_project/admins")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllAdmins(){
-        return admns.getAllAdmins();
+        return admns.getAdminsNaturalJoinUser();
     }
 
     @GET
@@ -61,10 +59,24 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/suppliers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllSuppliers(){
+        return spplrs.getSuppliersNaturalJoinUser();
+    }
+
+    @GET
+    @Path("db_project/suppliers/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getSupplierById(@PathParam("id") int id){
+        return spplrs.getSupplierById(id);
+    }
+
+    @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllRequesters(){
-        return rqstr.getRequestersNarutalJoinUser();
+        return rqstr.getRequestersNaturalJoinUser();
     }
 
     @GET

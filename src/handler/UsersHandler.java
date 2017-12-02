@@ -79,12 +79,12 @@ public class UsersHandler {
         gilissa[7] = "Some address.";
         gilissa[8] = "gilissagilissa";
         gilissa[9] = "Jan234!";
-        ArrayList<Object[]> testResources = new ArrayList<Object[]>();
-        testResources.add(orlando);
-        testResources.add(pedro);
-        testResources.add(nicole);
-        testResources.add(gilissa);
-        return testResources;
+        ArrayList<Object[]> testUsers = new ArrayList<Object[]>();
+        testUsers.add(orlando);
+        testUsers.add(pedro);
+        testUsers.add(nicole);
+        testUsers.add(gilissa);
+        return testUsers;
     }
 
 }
