@@ -1,4 +1,5 @@
 import handler.ResourcesHandler;
+import handler.UsersHandler;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,6 +15,7 @@ import java.util.Hashtable;
 @Path("/db_project")
 public class Main {
 
+    private static UsersHandler usrs = new UsersHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
 
     public static void main(String[] args){
@@ -26,6 +28,20 @@ public class Main {
     @Produces("text/plain")
     public String getWelcomeMessage(){
         return "WELCOME TO HURRICANE MARIA DISASTER THINGY STUFF.";
+    }
+
+    @GET
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllUsers(){
+        return usrs.getAllUsers();
+    }
+
+    @GET
+    @Path("/users/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getAllResourcesById(@PathParam("id") int id){
+        return usrs.getAllUsersById(id);
     }
 
     @GET
@@ -42,5 +58,9 @@ public class Main {
     public Hashtable<String, Object> getResourceById(@PathParam("id") int id){
         return rs.getResourceById(id);
     }
+
+
+
+
 
 }
