@@ -3,11 +3,9 @@ package handler;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import static handler.UsersHandler.build_users_dict;
-
 public class AdminsHandler {
 
-    public static Hashtable<String, Object> build_resources_dict(Object[] row){
+    public static Hashtable<String, Object> build_admins_dic(Object[] row){
         Hashtable<String, Object> result = new Hashtable<String, Object>();
         result.put("adminID", row[0]);
         result.put("userID", row[1]);
@@ -16,18 +14,18 @@ public class AdminsHandler {
 
     public static ArrayList<Hashtable<String, Object>> getAllAdmins(){
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestResources().size(); i++){
-            result.add(build_users_dict(getTestResources().get(i)));
+        for(int i = 0; i < getTestAdmins().size(); i++){
+            result.add(build_admins_dic(getTestAdmins().get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getAdminById(int id){
-        return build_resources_dict(getTestResources().get(id));
+        return build_admins_dic(getTestAdmins().get(id));
     }
 
     //FOR TESTING PURPOSES
-    public static ArrayList<Object[]> getTestResources() {
+    public static ArrayList<Object[]> getTestAdmins() {
         Object[] admin1 = new Object[2];
         admin1[0] = 0;
         admin1[1] = 0;

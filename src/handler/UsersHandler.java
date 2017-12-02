@@ -22,19 +22,19 @@ public class UsersHandler {
 
     public static ArrayList<Hashtable<String, Object>> getAllUsers(){
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestResources().size(); i++){
-            result.add(build_users_dict(getTestResources().get(i)));
+        for(int i = 0; i < getTestUsers().size(); i++){
+            result.add(build_users_dict(getTestUsers().get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getAllUsersById(int id){
-        return build_users_dict(getTestResources().get(id));
+        return build_users_dict(getTestUsers().get(id));
     }
 
 
     //FOR TESTING PURPOSES
-    public static ArrayList<Object[]> getTestResources(){
+    public static ArrayList<Object[]> getTestUsers(){
         Object[] orlando = new Object[10];
         orlando[0] = 0;
         orlando[1] = "Orlando";

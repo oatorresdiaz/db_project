@@ -49,28 +49,28 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/users/admins")
+    @Path("db_project/admins")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllAdmins(){
         return admns.getAllAdmins();
     }
 
     @GET
-    @Path("db_project/users/admins/{id}")
+    @Path("db_project/admins/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getAdminById(@PathParam("id") int id){
         return admns.getAdminById(id);
     }
 
     @GET
-    @Path("db_project/users/requesters")
+    @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllRequesters(){
         return rqstr.getAllRequesters();
     }
 
     @GET
-    @Path("db_project/users/requesters/{id}")
+    @Path("db_project/requesters/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getRequesterById(@PathParam("id") int id){
         return rqstr.getRequesterId(id);
