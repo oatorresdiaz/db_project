@@ -25,6 +25,7 @@ public class ResourcesHandler {
         return build_resources_dict(getTestResources().get(id));
     }
 
+    //FOR TESTING PURPOSES
     public static ArrayList<Object[]> getTestResources(){
         Object[] water1 = new Object[3];
         water1[0] = 0;

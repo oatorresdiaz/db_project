@@ -1,3 +1,4 @@
+import handler.AdminsHandler;
 import handler.ResourcesHandler;
 import handler.UsersHandler;
 
@@ -12,10 +13,11 @@ import java.util.Hashtable;
 
 
 //Main URI path
-@Path("/db_project")
+@Path("/")
 public class Main {
 
     private static UsersHandler usrs = new UsersHandler();
+    private static AdminsHandler admns = new AdminsHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
 
     public static void main(String[] args){
@@ -31,21 +33,35 @@ public class Main {
     }
 
     @GET
-    @Path("/users")
+    @Path("db_project/users")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllUsers(){
         return usrs.getAllUsers();
     }
 
     @GET
-    @Path("/users/{id}")
+    @Path("db_project/users/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getAllResourcesById(@PathParam("id") int id){
         return usrs.getAllUsersById(id);
     }
 
     @GET
-    @Path("/resources")
+    @Path("db_project/users/admins")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllAdmins(){
+        return admns.getAllAdmins();
+    }
+
+    @GET
+    @Path("db_project/users/admins/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getAdminById(@PathParam("id") int id){
+        return admns.getAdminById(id);
+    }
+
+    @GET
+    @Path("db_project/resources")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllResources(){
         return rs.getAllResources();
@@ -53,7 +69,7 @@ public class Main {
 
 
     @GET
-    @Path("/resources/{id}")
+    @Path("db_project/resources/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getResourceById(@PathParam("id") int id){
         return rs.getResourceById(id);

@@ -32,6 +32,8 @@ public class UsersHandler {
         return build_users_dict(getTestResources().get(id));
     }
 
+
+    //FOR TESTING PURPOSES
     public static ArrayList<Object[]> getTestResources(){
         Object[] orlando = new Object[10];
         orlando[0] = 0;
