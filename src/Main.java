@@ -24,8 +24,6 @@ public class Main {
 
     public static void main(String[] args){
 
-        System.out.println(rs.getResourceById(0));
-
     }
 
     @GET
@@ -66,7 +64,7 @@ public class Main {
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllRequesters(){
-        return rqstr.getAllRequesters();
+        return rqstr.getRequestersNarutalJoinUser();
     }
 
     @GET

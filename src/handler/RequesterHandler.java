@@ -9,7 +9,7 @@ public class RequesterHandler {
     public static Hashtable<String, Object> build_requesters_dic(Object[] row){
         Hashtable<String, Object> result = new Hashtable<String, Object>();
         result.put("reqID", row[0]);
-        result.put("userID", row[1]);
+        result.put("uID", row[1]);
         return result;
     }
 
@@ -23,6 +23,21 @@ public class RequesterHandler {
 
     public static Hashtable<String, Object> getRequesterId(int id){
         return build_requesters_dic(getTestRequesters().get(id));
+    }
+
+    public static ArrayList<Hashtable<String, Object>> getRequestersNarutalJoinUser(){
+        UsersHandler userHandler = new UsersHandler();
+        ArrayList<Hashtable<String, Object>> users = userHandler.getAllUsers();
+        ArrayList<Hashtable<String, Object>> requesters = getAllRequesters();
+        ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
+        for(int i = 0; i < requesters.size(); i++){
+            for(int j = 0; j < users.size(); j++){
+                if(requesters.get(i).get("uID") == users.get(j).get("uID")){
+                    result.add(users.get(j));
+                }
+            }
+        }
+        return result;
     }
 
     //FOR TESTING PURPOSES
