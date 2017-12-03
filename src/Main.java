@@ -17,6 +17,7 @@ public class Main {
     private static RequestersHandler rqstr = new RequestersHandler();
     private static InventoryHandler inv = new InventoryHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
+    private static PurchasesHandler purchasesH = new PurchasesHandler();
 
     public static void main(String[] args){
 
@@ -134,5 +135,13 @@ public class Main {
         //return inv.getInventoryById(invID);
         //
     }
+
+    @GET
+    @Path("db_project/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllPurchases(){
+        return purchasesH.getRequestersNatJPurchasesNatJInventory();
+    }
+
 
 }
