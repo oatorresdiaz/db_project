@@ -132,6 +132,7 @@ public class Main {
     public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") int invID, @QueryParam("suppID") int suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") int invQty, @QueryParam("invPrice") double invPrice, @QueryParam("invReserved") String invReserved){
         return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
         //return inv.getInventoryById(invID);
+        //
     }
 
 }
