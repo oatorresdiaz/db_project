@@ -17,6 +17,7 @@ public class Main {
     private static RequestersHandler rqstr = new RequestersHandler();
     private static InventoryHandler inv = new InventoryHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
+    private static ReserveHandler res = new ReserveHandler();
 
     public static void main(String[] args){
 
@@ -135,4 +136,17 @@ public class Main {
         //
     }
 
+    @GET
+    @Path("db_project/reserve")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllReserves(){
+        return res.getRequestersNaturalJoinInventory();
+    }
+
+    @GET
+    @Path("db_project/reserve/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getReserveId(@PathParam("id") int id){
+        return res.getReserveId(id);
+    }
 }

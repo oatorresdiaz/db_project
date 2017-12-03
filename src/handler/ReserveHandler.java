@@ -31,16 +31,16 @@ public class ReserveHandler {
         InventoryHandler inventoryHandler = new InventoryHandler();
         ReserveHandler reserveHandler = new ReserveHandler();
 
-        ArrayList<Hashtable<String, Object>> reserve = getAllReserves();
+        ArrayList<Hashtable<String, Object>> reserve    = getAllReserves();
         ArrayList<Hashtable<String, Object>> requesters = requestersHandler.getAllRequesters();
-        ArrayList<Hashtable<String, Object>> inventory = inventoryHandler.getAllInventory();
-        ArrayList<Hashtable<String, Object>> reqNIJrsv = new ArrayList<>();
+        ArrayList<Hashtable<String, Object>> inventory  = inventoryHandler.getAllInventory();
+        ArrayList<Hashtable<String, Object>> reqNIJrsv  = new ArrayList<>();
         ArrayList<Hashtable<String, Object>> result = new ArrayList<>();
 
-        for (int i = 0; i < requesters.size(); i++) {
-            for (int j = 0; j < reserve.size(); j++) {
+        for (int i = 0; i < reserve.size(); i++) {
+            for (int j = 0; j < requesters.size(); j++) {
                 if (reserve.get(i).get("reqID") == requesters.get(j).get("reqID")) {
-                    reqNIJrsv.add(reserve.get(j));
+                    reqNIJrsv.add(reserve.get(i));
                 }
             }
         }
@@ -59,17 +59,17 @@ public class ReserveHandler {
     public static ArrayList<Object[]> getTestReserves(){
         Object[] res1 = new Object[3];
         res1[0] = 0;
-        res1[1] = 4;
+        res1[1] = 0;
         res1[2] = pKey(res1[0], res1[1]);
 
         Object[] res2 = new Object[3];
         res2[0] = 0;
-        res2[1] = 3;
+        res2[1] = 1;
         res2[2] = pKey(res2[0], res2[1]);
 
         Object[] res3 = new Object[3];
         res3[0] = 1;
-        res3[1] = 6;
+        res3[1] = 2;
         res3[2] = pKey(res3[0], res3[1]);
 
         ArrayList<Object[]> testReserves = new ArrayList<>();
