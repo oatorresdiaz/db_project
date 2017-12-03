@@ -1,9 +1,6 @@
 import handler.*;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
@@ -122,15 +119,19 @@ public class Main {
         return inv.getInventoryById(id);
     }*/
 
-    @GET
-    @Path("db_project/inventory/{arg}/{value}")
+    /*@GET
+    @Path("db_project/inventory?{arg}/{value}")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@PathParam("arg") String arg, @PathParam("value") String value){
         return inv.getInventoryByArgument(arg, value);
+    }*/
+
+    @GET
+    @Path("db_project/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") int invID, @QueryParam("suppID") int suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") int invQty, @QueryParam("invPrice") double invPrice, @QueryParam("invReserved") String invReserved){
+        return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
+        //return inv.getInventoryById(invID);
     }
-
-
-
-
 
 }
