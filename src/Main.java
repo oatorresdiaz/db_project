@@ -18,6 +18,7 @@ public class Main {
     private static AdminsHandler admns = new AdminsHandler();
     private static SuppliersHandler spplrs = new SuppliersHandler();
     private static RequestersHandler rqstr = new RequestersHandler();
+    private static InventoryHandler inv = new InventoryHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
 
     public static void main(String[] args){
@@ -73,6 +74,13 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/suppliers/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getInventoryBySuppliers(){
+        return inv.getInventoryBySuppliers();
+    }
+
+    @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllRequesters(){
@@ -93,12 +101,32 @@ public class Main {
         return rs.getAllResources();
     }
 
-
     @GET
     @Path("db_project/resources/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getResourceById(@PathParam("id") int id){
         return rs.getResourceById(id);
+    }
+
+    @GET
+    @Path("db_project/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllInventory(){
+        return inv.getAllInventory();
+    }
+
+    /*@GET
+    @Path("db_project/inventory/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getInventoryById(@PathParam("id") int id){
+        return inv.getInventoryById(id);
+    }*/
+
+    @GET
+    @Path("db_project/inventory/{arg}/{value}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@PathParam("arg") String arg, @PathParam("value") String value){
+        return inv.getInventoryByArgument(arg, value);
     }
 
 
