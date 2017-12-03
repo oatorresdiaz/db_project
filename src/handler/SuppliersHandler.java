@@ -9,6 +9,8 @@ public class SuppliersHandler {
         Hashtable<String, Object> result = new Hashtable<String, Object>();
         result.put("suppID", row[0]);
         result.put("uID", row[1]);
+        result.put("suppLat", row[2]);
+        result.put("suppLong", row[3]);
         return result;
     }
 
@@ -41,15 +43,18 @@ public class SuppliersHandler {
 
     //FOR TESTING PURPOSES
     public static ArrayList<Object[]> getTestSuppliers() {
-        Object[] supp1 = new Object[2];
+        Object[] supp1 = new Object[4];
         supp1[0] = 0;
         supp1[1] = 1;
-        Object[] supp2 = new Object[2];
+
+        Object[] supp2 = new Object[4];
         supp2[0] = 1;
         supp2[1] = 2;
-        Object[] supp3 = new Object[2];
+
+        Object[] supp3 = new Object[4];
         supp3[0] = 2;
         supp3[1] = 3;
+
         ArrayList<Object[]> testSuppliers = new ArrayList<Object[]>();
         testSuppliers.add(supp1);
         testSuppliers.add(supp2);
