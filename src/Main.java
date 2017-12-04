@@ -30,7 +30,7 @@ public class Main {
     private static InventoryHandler inv = new InventoryHandler();
     private static RequestsHandler reqstHndlr = new RequestsHandler();
 
-    private static ReserveHandler res = new ReserveHandler();
+    private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
 
     public static void main(String[] args){
@@ -199,14 +199,14 @@ public class Main {
     @Path("db_project/reserve")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllReserves(){
-        return res.getRequestersNaturalJoinInventory();
+        return rsrv.getRequestersNaturalJoinInventory();
     }
 
     @GET
     @Path("db_project/reserve/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public LinkedHashMap<String, Object> getReserveId(@PathParam("id") int id){
-        return res.getReserveId(id);
+        return rsrv.getReserveId(id);
     }
 
     @GET
@@ -217,7 +217,7 @@ public class Main {
                                         @QueryParam("resDate") @DefaultValue("UNDECLARED") String resDate,
                                         @QueryParam("resExpDate") @DefaultValue("UNDECLARED") String resExpDate,
                                         @QueryParam("resQty") @DefaultValue("-1") int resQty){
-        return res.getReserveWithArg(reqID, invID, resDate, resExpDate, resQty);
+        return rsrv.getReserveWithArg(reqID, invID, resDate, resExpDate, resQty);
     }
 
     @GET
@@ -243,11 +243,6 @@ public class Main {
         return reqstHndlr.getRequestsWithArg(rqstID, rqstQty, rqstDate, reqID);
     }
 
-    @GET
-    @Path("db_project/purchases")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
-        return prchs.getRequestersNatJPurchasesNatJInventory();
-    }
+
 
 }
