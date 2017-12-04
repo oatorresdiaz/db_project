@@ -23,11 +23,11 @@ public class InventoryHandler {
         return result;
     }
 
-    public Hashtable<String, Object> build_goodArg_dic(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved){
+    public static Hashtable<String, Object> build_goodArg_dic(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved){
         Hashtable<String, Object> result = new Hashtable<String, Object>();
         if(invID != -1) result.put("invID", invID);
         if(suppID != -1) result.put("suppID", suppID);
-        if(invDate != "UNDECLARED") result.put("invDate", invDate);
+        if(!invDate.equals("UNDECLARED")) result.put("invDate", invDate);
         if(invQty != -1) result.put("invQty", invQty);
         if(invPrice != -1) result.put("invPrice", invPrice);
         if(invReserved != -1)result.put("invReserved", invReserved);

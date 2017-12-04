@@ -85,13 +85,6 @@ public class Main {
         return spplrs.getSupplierById(id);
     }
 
-    /*@GET
-    @Path("db_project/suppliers/inventory")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getInventoryBySuppliers(){
-        return inv.getInventoryBySuppliers();
-    }*/
-
     @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
@@ -133,16 +126,6 @@ public class Main {
     public Hashtable<String, Object> getInventoryById(@PathParam("id") int id){
         return inv.getInventoryById(id);
     }
-
-    /*@GET
-    @Path("db_project/inventory/with")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryBySupplierId(@QueryParam("suppID") @DefaultValue("-1") int id){
-        if(id == -1) return get404ErrorMessage();
-        GenericEntity<ArrayList<Hashtable<String, Object>>> entity =
-                new GenericEntity<ArrayList<Hashtable<String,Object>>>(inv.getInventoryBySupplierId(id)) {};
-        return Response.ok(entity).build();
-    }*/
 
     @GET
     @Path("db_project/inventory/with")
