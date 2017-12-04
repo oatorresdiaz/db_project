@@ -1,7 +1,11 @@
 import handler.*;
 
 import javax.ws.rs.*;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -31,6 +35,13 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/error")
+    @Produces("text/plain")
+    public Response get404ErrorMessage(){
+        return Response.status(404).build();
+    }
+
+    @GET
     @Path("db_project/users")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getAllUsers(){
@@ -41,7 +52,7 @@ public class Main {
     @Path("db_project/users/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getAllResourcesById(@PathParam("id") int id){
-        return usrs.getAllUsersById(id);
+        return usrs.getUserById(id);
     }
 
     @GET
@@ -114,27 +125,18 @@ public class Main {
         return inv.getAllInventory();
     }
 
-    /*@GET
+    @GET
     @Path("db_project/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Hashtable<String, Object> getInventoryById(@PathParam("id") int id){
         return inv.getInventoryById(id);
-    }*/
-
-    /*@GET
-    @Path("db_project/inventory?{arg}/{value}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@PathParam("arg") String arg, @PathParam("value") String value){
-        return inv.getInventoryByArgument(arg, value);
-    }*/
+    }
 
     @GET
     @Path("db_project/inventory/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") int invID, @QueryParam("suppID") int suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") int invQty, @QueryParam("invPrice") double invPrice, @QueryParam("invReserved") String invReserved){
+    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") Integer invID, @QueryParam("suppID") Integer suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") Integer invQty, @QueryParam("invPrice") Double invPrice, @QueryParam("invReserved") String invReserved){
         return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
-        //return inv.getInventoryById(invID);
-        //
     }
 
     @GET
