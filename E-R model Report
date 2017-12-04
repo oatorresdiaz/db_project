@@ -1,0 +1,48 @@
+# db_project
+Backend System for Disaster Site Resources Locator
+
+Entities:
+
+  User - Covers every user using the database. It contains the persons full name,
+       Gender, birth date, region, phone number, address, username and password.
+       It's primary key is uID.
+
+  Admin - Identifies the user as an administrator. Contains the primary key adminID 
+        and the foreign key uID.
+
+  Supplier - Identifies the user as a supplier. Contains the primary key suppID and 
+           the foreign key uID.
+           
+  Requester - Identifies the user as a requester. Contains the primary key reqID and 
+           the foreign key uID.
+           
+  Resources - All items that can be requested/supplied in the database. The resources
+            are divided in different categories, using the attribute resCategory, and
+            further divided inside this categories by the attribute resSubCategories
+
+  Inventory - Contains all the supplied resources by the suppliers. Contains the 
+            date added, total quantity in stock, the quantity that is reserved,
+            the quantity available and it's price.
+            
+  Requests - Contains the needed resources of the requesters (not paired with a supplier).
+            Includes the quantity of resources that are requested and date at which the
+            it was made. The primary key is rqstID.
+            
+Relations:
+
+Admin/Supplier/Requester - subcategories of the user entity
+
+Supplies - Which user is providing the resources in the inventory.
+
+Purchases - The resources bought by a requester from the available stock in the inventory.
+            Saves the date and amount of resources purchased
+            
+Reserves - The resources reserved by a requester from the available stock in the inventory
+            (to be bought at a later date). Saves the date and amount of resources reserved
+            while deriving an expiration date for the reservation (will return the reserved
+            resources to the available invertory)
+            
+Requested - Resources asked for by the requesters
+
+isResource - Guarantees that the resources in the inventory and requests are part
+              of the Resource entity.
