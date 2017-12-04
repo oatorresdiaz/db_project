@@ -1,5 +1,7 @@
 package handler;
 
+import dao.PurchasesDao;
+
 import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.Hashtable;
@@ -18,15 +20,19 @@ public class PurchasesHandler {
     }
 
     public static ArrayList<Hashtable<String, Object>> getAllPurchases(){
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestPurchases().size(); i++){
-            result.add(build_purchases_dic(getTestPurchases().get(i)));
+        for(int i = 0; i < prchsList.size(); i++){
+            result.add(build_purchases_dic(prchsList.get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getPurchaseById(int id){
-        return build_purchases_dic(getTestPurchases().get(id));
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
+        return build_purchases_dic(prchsList.get(id));
     }
 
 
@@ -72,44 +78,6 @@ public class PurchasesHandler {
             results.add(allUserInfoFromPurchase);
         }
         return results;
-    }
-
-
-
-    //FOR TESTING PURPOSES
-    private static ArrayList<Object[]> getTestPurchases(){
-        ArrayList<Object[]> testPurchases = new ArrayList<>();
-
-        Object[] purchase1 = new Object[4];
-        purchase1[0] = 0;
-        purchase1[1] = 1;
-        purchase1[2] = 0;
-        purchase1[3] = 20;
-
-        Object[] purchase2 = new Object[4];
-        purchase2[0] = 1;
-        purchase2[1] = 0;
-        purchase2[2] = 0;
-        purchase2[3] = 10;
-
-        Object[] purchase3 = new Object[4];
-        purchase3[0] = 2;
-        purchase3[1] = 1;
-        purchase3[2] = 2;
-        purchase3[3] = 100;
-
-        Object[] purchase4 = new Object[4];
-        purchase4[0] = 3;
-        purchase4[1] = 0;
-        purchase4[2] = 1;
-        purchase4[3] = 25;
-
-        testPurchases.add(purchase1);
-        testPurchases.add(purchase2);
-        testPurchases.add(purchase3);
-        testPurchases.add(purchase4);
-
-        return testPurchases;
     }
 
 

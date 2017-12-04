@@ -1,5 +1,7 @@
 package handler;
 
+import dao.AdminsDao;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -13,15 +15,19 @@ public class AdminsHandler {
     }
 
     public static ArrayList<Hashtable<String, Object>> getAllAdmins(){
+        AdminsDao adms = new AdminsDao();
+        ArrayList<Object[]> admsList = adms.getAllAdmins();
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestAdmins().size(); i++){
-            result.add(build_admins_dic(getTestAdmins().get(i)));
+        for(int i = 0; i < admsList.size(); i++){
+            result.add(build_admins_dic(admsList.get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getAdminById(int id){
-        return build_admins_dic(getTestAdmins().get(id));
+        AdminsDao adms = new AdminsDao();
+        ArrayList<Object[]> admsList = adms.getAllAdmins();
+        return build_admins_dic(admsList.get(id));
     }
 
     public static ArrayList<Hashtable<String, Object>> getAdminsNaturalJoinUser(){
@@ -37,19 +43,5 @@ public class AdminsHandler {
             }
         }
         return result;
-    }
-
-    //FOR TESTING PURPOSES
-    public static ArrayList<Object[]> getTestAdmins() {
-        Object[] admin1 = new Object[2];
-        admin1[0] = 0;
-        admin1[1] = 0;
-        Object[] admin2 = new Object[2];
-        admin2[0] = 1;
-        admin2[1] = 2;
-        ArrayList<Object[]> testAdmins = new ArrayList<Object[]>();
-        testAdmins.add(admin1);
-        testAdmins.add(admin2);
-        return testAdmins;
     }
 }
