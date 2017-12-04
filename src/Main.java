@@ -239,7 +239,7 @@ public class Main {
                                         @QueryParam("resID") @DefaultValue("-1") int resID,
                                         @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
                                         @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
-        return reqstHndlr.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
+        return rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
     }
 
 }
