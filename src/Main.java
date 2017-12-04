@@ -154,6 +154,15 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getResourcesWith(@QueryParam("resID") @DefaultValue("-1") int reqID,
+                                     @QueryParam("resCategory") @DefaultValue("UNDECLARED") String resCategory,
+                                     @QueryParam("resSubCategory") @DefaultValue("UNDECLARED") String resSubCategory){
+        return rs.getResourcesWithArg(reqID, resCategory, resSubCategory);
+    }
+
+    @GET
     @Path("db_project/inventory")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllInventory(){

@@ -61,12 +61,13 @@ public class RequestersHandler {
         RequestersDao spplrs = new RequestersDao();
         ArrayList<Object[]> spplrsList = spplrs.getRequestersWithArg(argDic);
         ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
-        for(int i = 0; i < spplrsList.size(); i++){
+        for (int i = 0; i < spplrsList.size(); i++) {
             resultList.add(build_requesters_dic(spplrsList.get(i)));
         }
         if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList) {
+                };
         return Response.ok(entity).build();
     }
 }
