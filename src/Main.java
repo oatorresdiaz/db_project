@@ -228,6 +228,15 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/purchases/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedHashMap<String, Object> getPurchasesById(@PathParam("id") int id){
+        return purchasesH.getPurchaseById(id);
+    }
+
+    
+
+    @GET
     @Path("db_project/requests")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllRequests(){return reqstHndlr.getAllRequests();
