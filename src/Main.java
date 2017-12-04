@@ -244,11 +244,11 @@ public class Main {
     @GET
     @Path("db_project/requests/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRequestWithArg(@QueryParam("rqstID") @DefaultValue("-1") int rqstID,
-                                        @QueryParam("rqstQty") @DefaultValue("-1") int rqstQty,
+    public Response getRequestWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                        @QueryParam("resID") @DefaultValue("-1") int resID,
                                         @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
-                                        @QueryParam("reqID") @DefaultValue("-1") int reqID){
-        return reqstHndlr.getRequestsWithArg(rqstID, rqstQty, rqstDate, reqID);
+                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
+        return reqstHndlr.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
     }
 
 }
