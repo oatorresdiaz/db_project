@@ -235,7 +235,15 @@ public class Main {
         return purchasesH.getPurchaseById(id);
     }
 
-    
+    @GET
+    @Path("db_project/purchases/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReserveWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                      @QueryParam("invID") @DefaultValue("-1") int invID,
+                                      @QueryParam("purchaseDate") @DefaultValue("UNDECLARED") String purchaseDate,
+                                      @QueryParam("purchaseQty") @DefaultValue("-1") int purchaseQty){
+        return purchasesH.getPurchaseWithArg(reqID, invID, purchaseDate, purchaseQty);
+    }
 
     @GET
     @Path("db_project/requests")
