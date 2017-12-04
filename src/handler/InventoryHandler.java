@@ -8,12 +8,12 @@ import javax.ws.rs.core.Response;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 public class InventoryHandler {
 
-    public static Hashtable<String, Object> build_inventory_dic(Object[] row){
-        Hashtable<String, Object> result = new Hashtable<String, Object>();
+    public static LinkedHashMap<String, Object> build_inventory_dic(Object[] row){
+        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
         result.put("invID", row[0]);
         result.put("suppID", row[1]);
         result.put("invDate", row[2]);
@@ -23,8 +23,8 @@ public class InventoryHandler {
         return result;
     }
 
-    public static Hashtable<String, Object> build_goodArg_dic(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved){
-        Hashtable<String, Object> result = new Hashtable<String, Object>();
+    public static LinkedHashMap<String, Object> build_goodArg_dic(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved){
+        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
         if(invID != -1) result.put("invID", invID);
         if(suppID != -1) result.put("suppID", suppID);
         if(!invDate.equals("UNDECLARED")) result.put("invDate", invDate);
@@ -34,26 +34,26 @@ public class InventoryHandler {
         return result;
     }
 
-    public static ArrayList<Hashtable<String, Object>> getAllInventory(){
+    public static ArrayList<LinkedHashMap<String, Object>> getAllInventory(){
         InventoryDao inv = new InventoryDao();
         ArrayList<Object[]> invList = inv.getAllInventories();
-        ArrayList<Hashtable<String, Object>> resultList = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
         for(int i = 0; i < invList.size(); i++){
             resultList.add(build_inventory_dic(invList.get(i)));
         }
         return resultList;
     }
 
-    public static Hashtable<String, Object> getInventoryById(int id){
+    public static LinkedHashMap<String, Object> getInventoryById(int id){
         InventoryDao inv = new InventoryDao();
         ArrayList<Object[]> invList = inv.getAllInventories();
         return build_inventory_dic(invList.get(id));
     }
 
-    public ArrayList<Hashtable<String,Object>> getInventoryBySupplierId(int id) {
+    public ArrayList<LinkedHashMap<String,Object>> getInventoryBySupplierId(int id) {
         InventoryDao inv = new InventoryDao();
         ArrayList<Object[]> invList = inv.getInventoryBySupplierId(id);
-        ArrayList<Hashtable<String, Object>> resultList = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
         for(int i = 0; i < invList.size(); i++){
             resultList.add(build_inventory_dic(invList.get(i)));
         }
@@ -62,16 +62,16 @@ public class InventoryHandler {
     }
 
     public Response getInventoryWithArg(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved) {
-        Hashtable<String, Object> argDic = build_goodArg_dic(invID, suppID, invDate, invQty, invPrice, invReserved);
+        LinkedHashMap<String, Object> argDic = build_goodArg_dic(invID, suppID, invDate, invQty, invPrice, invReserved);
         InventoryDao inv = new InventoryDao();
         ArrayList<Object[]> invList = inv.getInventoryWithArg(argDic);
-        ArrayList<Hashtable<String, Object>> resultList = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
         for(int i = 0; i < invList.size(); i++){
             resultList.add(build_inventory_dic(invList.get(i)));
         }
         if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<Hashtable<String, Object>>> entity =
-                new GenericEntity<ArrayList<Hashtable<String,Object>>>(resultList) {};
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
         return Response.ok(entity).build();
     }
 

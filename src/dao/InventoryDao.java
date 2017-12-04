@@ -3,7 +3,7 @@ package dao;
 import utilities.DateCompound;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 public class InventoryDao {
 
@@ -120,7 +120,7 @@ public class InventoryDao {
         return testResources;
     }
 
-    public ArrayList<Object[]> getInventoryWithArg(Hashtable<String, Object> argsDic) {
+    public ArrayList<Object[]> getInventoryWithArg(LinkedHashMap<String, Object> argsDic) {
         Object[] keys = argsDic.keySet().toArray();
         String query = "";
         if(argsDic.size() == 1) query = "select * from inventory where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
