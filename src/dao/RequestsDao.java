@@ -3,7 +3,7 @@ package dao;
 import utilities.DateCompound;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 public class RequestsDao {
 
@@ -103,19 +103,19 @@ public class RequestsDao {
         return testResources;
     }
 
-    public ArrayList<Object[]> getRequestsWithArg(Hashtable<String, Object> argsDic) {
+    public ArrayList<Object[]> getRequestsWithArg(LinkedHashMap<String, Object> argsDic) {
         Object[] keys = argsDic.keySet().toArray();
         String query;
         if(argsDic.size() == 1) query = "select * from requests where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
         else{
             query = "select * from requests where " + keys[0] + " = " + argsDic.get(keys[0]);
             for(int i = 1; i < argsDic.size(); i++){
-                query += "and " + keys[1] + " = " + argsDic.get(keys[1]);
+                query += " and " + keys[i] + " = " + argsDic.get(keys[i]);
             }
             query += ";";
         }
-        //HARDWIRED
-        return getAllRequests(); //HARD WIRED
+        System.out.println(query);
+        return getAllRequests(); //HARD WIRED. IN PHASE II THE RETURN WILL MATCH THE QUERY.
     }
 
 }
