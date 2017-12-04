@@ -17,15 +17,21 @@ import java.util.LinkedHashMap;
 @Path("/")
 public class Main {
 
+    //User
     private static UsersHandler usrs = new UsersHandler();
+    //User subcategories
     private static AdminsHandler admns = new AdminsHandler();
     private static SuppliersHandler spplrs = new SuppliersHandler();
     private static RequestersHandler rqstr = new RequestersHandler();
-    private static InventoryHandler inv = new InventoryHandler();
+
+    //Resources
     private static ResourcesHandler rs = new ResourcesHandler();
+    //Resources relations
+    private static InventoryHandler inv = new InventoryHandler();
+    private static RequestsHandler reqstHndlr = new RequestsHandler();
+
     private static ReserveHandler res = new ReserveHandler();
     private static PurchasesHandler purchasesH = new PurchasesHandler();
-    private static RequestsHandler requestsH = new RequestsHandler();
 
     public static void main(String[] args){
 
@@ -91,7 +97,7 @@ public class Main {
     @GET
     @Path("db_project/admins/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsersWith(@QueryParam("adminID") @DefaultValue("-1") int adminID,
+    public Response getAdminsWithArg(@QueryParam("adminID") @DefaultValue("-1") int adminID,
                                  @QueryParam("uID") @DefaultValue("-1") int uID){
         return admns.getAdminsWithArg(adminID, uID);
     }
@@ -206,7 +212,7 @@ public class Main {
     @GET
     @Path("db_project/reserve/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+    public Response getReserveWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
                                         @QueryParam("invID") @DefaultValue("-1") int invID,
                                         @QueryParam("resDate") @DefaultValue("UNDECLARED") String resDate,
                                         @QueryParam("resExpDate") @DefaultValue("UNDECLARED") String resExpDate,
@@ -224,24 +230,24 @@ public class Main {
     @GET
     @Path("db_project/requests")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllRequests(){return requestsH.getAllRequests();
+    public ArrayList<LinkedHashMap<String, Object>> getAllRequests(){return reqstHndlr.getAllRequests();
     }
 
     @GET
     @Path("db_project/requests/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getRequestsById(@PathParam("id") int id){
-        return requestsH.getRequestsById(id);
+    public LinkedHashMap<String, Object> getRequestsById(@PathParam("id") int id){
+        return reqstHndlr.getRequestsById(id);
     }
 
     @GET
-    @Path("db_project/inventory/with")
+    @Path("db_project/requests/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryWithArg(@QueryParam("rqstsID") @DefaultValue("-1") int rqstsID,
-                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty,
-                                        @QueryParam("rqstsDate") @DefaultValue("UNDECLARED") String rqstsDate,
+    public Response getRequestWithArg(@QueryParam("rqstID") @DefaultValue("-1") int rqstID,
+                                        @QueryParam("rqstQty") @DefaultValue("-1") int rqstQty,
+                                        @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
                                         @QueryParam("reqID") @DefaultValue("-1") int reqID){
-        return requestsH.getRequestsWithArg(rqstsID, rqstsQty, rqstsDate, reqID);
+        return reqstHndlr.getRequestsWithArg(rqstID, rqstQty, rqstDate, reqID);
     }
 
 }
