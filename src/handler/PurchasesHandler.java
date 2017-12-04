@@ -19,9 +19,10 @@ public class PurchasesHandler {
         return result;
     }
 
+    //Returns all purchases from the DAO as an ArrayList containing purchases
+    // all purchases.
     public static ArrayList<Hashtable<String, Object>> getAllPurchases(){
-        PurchasesDao prchs = new PurchasesDao();
-        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
+        ArrayList<Object[]> prchsList = dao.PurchasesDao.getAllPurchases();
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
         for(int i = 0; i < prchsList.size(); i++){
             result.add(build_purchases_dic(prchsList.get(i)));
@@ -37,12 +38,12 @@ public class PurchasesHandler {
 
 
     public static ArrayList<Hashtable<String, Object>> getRequestersNatJPurchasesNatJInventory(){
-        RequestersHandler requesterH = new RequestersHandler();
-        InventoryHandler inventoryH = new InventoryHandler();
+        //RequestersHandler requesterH = new RequestersHandler();
+        //InventoryHandler inventoryH = new InventoryHandler();
 
         ArrayList<Hashtable<String, Object>> purchases = getAllPurchases();
-        ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
-        ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
+       // ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
+       // ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
 
         ArrayList<Hashtable<String, Object>> results = new ArrayList<>();
 
@@ -50,13 +51,13 @@ public class PurchasesHandler {
 
             Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
 
-            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqId"));
+            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqID"));
             allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
             allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
 
             results.add(allUserInfoFromPurchase);
         }
-        return results;
+        return purchases;
     }
 }

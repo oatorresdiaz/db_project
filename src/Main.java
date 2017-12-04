@@ -25,6 +25,7 @@ public class Main {
     private static ResourcesHandler rs = new ResourcesHandler();
     private static ReserveHandler res = new ReserveHandler();
     private static PurchasesHandler purchasesH = new PurchasesHandler();
+    private static RequestsHandler requestsH = new RequestsHandler();
 
     public static void main(String[] args){
 
@@ -176,5 +177,27 @@ public class Main {
         return purchasesH.getRequestersNatJPurchasesNatJInventory();
     }
 
+    @GET
+    @Path("db_project/requests")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllRequests(){return requestsH.getAllRequests();
+    }
+
+    @GET
+    @Path("db_project/requests/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getRequestsById(@PathParam("id") int id){
+        return requestsH.getRequestsById(id);
+    }
+
+    @GET
+    @Path("db_project/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInventoryWithArg(@QueryParam("rqstsID") @DefaultValue("-1") int rqstsID,
+                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty,
+                                        @QueryParam("rqstsDate") @DefaultValue("UNDECLARED") String rqstsDate,
+                                        @QueryParam("reqID") @DefaultValue("-1") int reqID){
+        return requestsH.getRequestsWithArg(rqstsID, rqstsQty, rqstsDate, reqID);
+    }
 
 }

@@ -7,7 +7,6 @@ import java.util.Hashtable;
 
 public class UsersHandler {
 
-    //hola
 
     public static Hashtable<String, Object> build_users_dict(Object[] row){
         Hashtable<String, Object> result = new Hashtable<String, Object>();
