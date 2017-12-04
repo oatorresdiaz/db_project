@@ -21,6 +21,15 @@ public class PurchasesHandler {
         return result;
     }
 
+    private LinkedHashMap<String,Object> build_goodArg_dic(int reqID, int invID, String purchaseDate, int purchaseQty) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        if(reqID != -1) result.put("reqID", reqID);
+        if(invID != -1) result.put("invID", invID);
+        if(!purchaseDate.equals("UNDECLARED")) result.put("prchsDate", purchaseDate);
+        if(purchaseQty != -1) result.put("prchsQty", purchaseQty);
+        return result;
+    }
+
     public static ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
         PurchasesDao prchs = new PurchasesDao();
         ArrayList<Object[]> prchsList = prchs.getAllPurchases();
@@ -74,14 +83,5 @@ public class PurchasesHandler {
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList){};
         return Response.ok(entity).build();
-    }
-
-    private LinkedHashMap<String,Object> build_goodArg_dic(int reqID, int invID, String purchaseDate, int purchaseQty) {
-        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        if(reqID != -1) result.put("reqID", reqID);
-        if(invID != -1) result.put("invID", invID);
-        if(!purchaseDate.equals("UNDECLARED")) result.put("prchsDate", purchaseDate);
-        if(purchaseQty != -1) result.put("prchsQty", purchaseQty);
-        return result;
     }
 }
