@@ -3,15 +3,15 @@ package handler;
 import dao.PurchasesDao;
 
 import java.util.ArrayList;
-//import java.util.HashMap;
-import java.util.Hashtable;
+//import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
 
 
 public class PurchasesHandler {
 
 
-    public static Hashtable<String, Object> build_purchases_dic(Object[] row){
-        Hashtable<String, Object> result = new Hashtable<>();
+    public static LinkedHashMap<String, Object> build_purchases_dic(Object[] row){
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         result.put("reqID", row[0]);
         result.put("invID", row[1]);
         result.put("purchaseAmount", row[2]);
@@ -19,45 +19,45 @@ public class PurchasesHandler {
         return result;
     }
 
-    //Returns all purchases from the DAO as an ArrayList containing purchases
-    // all purchases.
-    public static ArrayList<Hashtable<String, Object>> getAllPurchases(){
-        ArrayList<Object[]> prchsList = dao.PurchasesDao.getAllPurchases();
-        ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
+    public static ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
+        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
         for(int i = 0; i < prchsList.size(); i++){
             result.add(build_purchases_dic(prchsList.get(i)));
         }
         return result;
     }
 
-    public static Hashtable<String, Object> getPurchaseById(int id){
+    public static LinkedHashMap<String, Object> getPurchaseById(int id){
         PurchasesDao prchs = new PurchasesDao();
         ArrayList<Object[]> prchsList = prchs.getAllPurchases();
         return build_purchases_dic(prchsList.get(id));
     }
 
 
-    public static ArrayList<Hashtable<String, Object>> getRequestersNatJPurchasesNatJInventory(){
-        //RequestersHandler requesterH = new RequestersHandler();
-        //InventoryHandler inventoryH = new InventoryHandler();
+    public static ArrayList<LinkedHashMap<String, Object>> getRequestersNatJPurchasesNatJInventory(){
+        RequestersHandler requesterH = new RequestersHandler();
+        InventoryHandler inventoryH = new InventoryHandler();
 
-        ArrayList<Hashtable<String, Object>> purchases = getAllPurchases();
-       // ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
-       // ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
+        ArrayList<LinkedHashMap<String, Object>> purchases = getAllPurchases();
+        ArrayList<LinkedHashMap<String, Object>> requesters = requesterH.getAllRequesters();
+        ArrayList<LinkedHashMap<String, Object>> inventory = inventoryH.getAllInventory();
 
-        ArrayList<Hashtable<String, Object>> results = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> results = new ArrayList<>();
 
         for(int i = 0; i < purchases.size(); i++){
 
-            Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
+            LinkedHashMap<String, Object> allUserInfoFromPurchase = new LinkedHashMap<>();
 
-            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqID"));
+            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqId"));
             allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
             allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
 
             results.add(allUserInfoFromPurchase);
         }
-        return purchases;
+        return results;
     }
+
 }

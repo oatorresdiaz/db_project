@@ -2,40 +2,50 @@ package handler;
 
 import dao.RequestersDao;
 
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashMap;
 
 
 public class RequestersHandler {
 
-    public static Hashtable<String, Object> build_requesters_dic(Object[] row){
-        Hashtable<String, Object> result = new Hashtable<String, Object>();
+    public static LinkedHashMap<String, Object> build_requesters_dic(Object[] row){
+        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
         result.put("reqID", row[0]);
         result.put("uID", row[1]);
         return result;
     }
 
-    public static ArrayList<Hashtable<String, Object>> getAllRequesters(){
+    private LinkedHashMap<String,Object> build_goodArg_dic(int reqID, int uID) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        if(reqID != -1) result.put("reqID", reqID);
+        if(uID != -1) result.put("uID", uID);
+        return result;
+    }
+
+    public static ArrayList<LinkedHashMap<String, Object>> getAllRequesters(){
         RequestersDao rqstrs = new RequestersDao();
         ArrayList<Object[]> rqstrsList = rqstrs.getAllRequesters();
-        ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
+        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
         for(int i = 0; i < rqstrsList.size(); i++){
             result.add(build_requesters_dic(rqstrsList.get(i)));
         }
         return result;
     }
 
-    public static Hashtable<String, Object> getRequesterId(int id){
+    public static LinkedHashMap<String, Object> getRequesterId(int id){
         RequestersDao rqstrs = new RequestersDao();
         ArrayList<Object[]> rqstrsList = rqstrs.getAllRequesters();
         return build_requesters_dic(rqstrsList.get(id));
     }
 
-    public static ArrayList<Hashtable<String, Object>> getRequestersNaturalJoinUser(){
+    public static ArrayList<LinkedHashMap<String, Object>> getRequestersNaturalJoinUser(){
         UsersHandler userHandler = new UsersHandler();
-        ArrayList<Hashtable<String, Object>> users = userHandler.getAllUsers();
-        ArrayList<Hashtable<String, Object>> requesters = getAllRequesters();
-        ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> users = userHandler.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> requesters = getAllRequesters();
+        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
         for(int i = 0; i < requesters.size(); i++){
             for(int j = 0; j < users.size(); j++){
                 if(requesters.get(i).get("uID") == users.get(j).get("uID")){
@@ -44,5 +54,20 @@ public class RequestersHandler {
             }
         }
         return result;
+    }
+
+    public Response getRequestersWithArg(int reqID, int uID) {
+        LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, uID);
+        RequestersDao spplrs = new RequestersDao();
+        ArrayList<Object[]> spplrsList = spplrs.getRequestersWithArg(argDic);
+        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
+        for (int i = 0; i < spplrsList.size(); i++) {
+            resultList.add(build_requesters_dic(spplrsList.get(i)));
+        }
+        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList) {
+                };
+        return Response.ok(entity).build();
     }
 }

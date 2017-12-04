@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class RequestersDao {
 
@@ -18,4 +19,18 @@ public class RequestersDao {
         return testRequesters;
     }
 
+    public ArrayList<Object[]> getRequestersWithArg(LinkedHashMap<String, Object> argsDic) {
+        Object[] keys = argsDic.keySet().toArray();
+        String query = "";
+        if(argsDic.size() == 1) query = "select * from requesters where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
+        else if (argsDic.size() > 1){
+            query = "select * from requesters where " + keys[0] + " = " + argsDic.get(keys[0]);
+            for(int i = 1; i < argsDic.size(); i++){
+                query += " and " + keys[i] + " = " + argsDic.get(keys[i]);
+            }
+            query += ";";
+        }
+        System.out.println(query);
+        return getAllRequesters(); //HARD WIRED. IN PHASE II THE RETURN WILL MATCH THE QUERY.
+    }
 }
