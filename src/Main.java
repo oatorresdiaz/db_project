@@ -220,6 +220,23 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/purchases/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedHashMap<String, Object> getPurchasesById(@PathParam("id") int id){
+        return purchasesH.getPurchaseById(id);
+    }
+
+    @GET
+    @Path("db_project/purchases/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReserveWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                      @QueryParam("invID") @DefaultValue("-1") int invID,
+                                      @QueryParam("purchaseDate") @DefaultValue("UNDECLARED") String purchaseDate,
+                                      @QueryParam("purchaseQty") @DefaultValue("-1") int purchaseQty){
+        return purchasesH.getPurchaseWithArg(reqID, invID, purchaseDate, purchaseQty);
+    }
+
+    @GET
     @Path("db_project/requests")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllRequests(){return rqsts.getAllRequests();

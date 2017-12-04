@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class PurchasesDao {
 
@@ -34,5 +35,20 @@ public class PurchasesDao {
         testPurchases.add(purchase4);
 
         return testPurchases;
+    }
+
+    public ArrayList<Object[]> getPurchaseWithArg(LinkedHashMap<String, Object> argsDic) {
+        Object[] keys = argsDic.keySet().toArray();
+        String query;
+        if(argsDic.size() == 1) query = "select * from Purchases where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
+        else{
+            query = "select * from Purchases where " + keys[0] + " = " + argsDic.get(keys[0]);
+            for(int i = 1; i < argsDic.size(); i++){
+                query += " and " + keys[i] + " = " + argsDic.get(keys[i]);
+            }
+            query += ";";
+        }
+        System.out.println(query);
+        return getAllPurchases();
     }
 }
