@@ -16,8 +16,8 @@ public class PurchasesHandler {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         result.put("reqID", row[0]);
         result.put("invID", row[1]);
-        result.put("purchaseQty", row[2]);
-        result.put("purchaseDate", row[3]);
+        result.put("prchsQty", row[2]);
+        result.put("prchsDate", row[3]);
         return result;
     }
 
@@ -54,8 +54,8 @@ public class PurchasesHandler {
 
             allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqId"));
             allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
-            allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
-            allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
+            allUserInfoFromPurchase.put("prchsQty", purchases.get(i).get("prchsQty"));
+            allUserInfoFromPurchase.put("prchsDate", purchases.get(i).get("prchsDate"));
 
             results.add(allUserInfoFromPurchase);
         }
@@ -64,11 +64,11 @@ public class PurchasesHandler {
 
     public Response getPurchaseWithArg(int reqID, int invID, String purchaseDate, int purchaseQty) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, invID, purchaseDate, purchaseQty);
-        PurchasesDao purchase = new PurchasesDao();
-        ArrayList<Object[]> purchaseList = purchase.getPurchaseWithArg(argDic);
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getPurchaseWithArg(argDic);
         ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
-        for(int i = 0; i < purchaseList.size(); i++){
-            resultList.add(build_purchases_dic(purchaseList.get(i)));
+        for(int i = 0; i < prchsList.size(); i++){
+            resultList.add(build_purchases_dic(prchsList.get(i)));
         }
         if(resultList.isEmpty()) return Response.status(404).build();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
@@ -80,8 +80,8 @@ public class PurchasesHandler {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         if(reqID != -1) result.put("reqID", reqID);
         if(invID != -1) result.put("invID", invID);
-        if(!purchaseDate.equals("UNDECLARED")) result.put("purchaseDate", purchaseDate);
-        if(purchaseQty != -1) result.put("purchaseQty", purchaseQty);
+        if(!purchaseDate.equals("UNDECLARED")) result.put("prchsDate", purchaseDate);
+        if(purchaseQty != -1) result.put("prchsQty", purchaseQty);
         return result;
     }
 }
