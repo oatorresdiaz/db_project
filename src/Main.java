@@ -83,12 +83,12 @@ public class Main {
         return spplrs.getSupplierById(id);
     }
 
-    @GET
+    /*@GET
     @Path("db_project/suppliers/inventory")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getInventoryBySuppliers(){
         return inv.getInventoryBySuppliers();
-    }
+    }*/
 
     @GET
     @Path("db_project/requesters")
@@ -132,12 +132,12 @@ public class Main {
         return inv.getInventoryById(id);
     }
 
-    @GET
+    /*@GET
     @Path("db_project/inventory/with")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") Integer invID, @QueryParam("suppID") Integer suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") Integer invQty, @QueryParam("invPrice") Double invPrice, @QueryParam("invReserved") String invReserved){
         return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
-    }
+    }*/
 
     @GET
     @Path("db_project/reserve")
