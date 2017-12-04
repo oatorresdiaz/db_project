@@ -12,8 +12,8 @@ public class PurchasesHandler {
 
     public static Hashtable<String, Object> build_purchases_dic(Object[] row){
         Hashtable<String, Object> result = new Hashtable<>();
-        result.put("requesterID", row[0]);
-        result.put("inventoryID", row[1]);
+        result.put("reqID", row[0]);
+        result.put("invID", row[1]);
         result.put("purchaseAmount", row[2]);
         result.put("purchaseDate", row[3]);
         return result;
@@ -50,8 +50,8 @@ public class PurchasesHandler {
 
             Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
 
-            allUserInfoFromPurchase.put("requesterID", purchases.get(i).get("requesterID"));
-            allUserInfoFromPurchase.put("inventoryID", purchases.get(i).get("inventoryID"));
+            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqID"));
+            allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
             allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
 
