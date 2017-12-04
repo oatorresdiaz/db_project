@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.ws.Service;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 
 //Main URI path
@@ -46,84 +46,100 @@ public class Main {
     @GET
     @Path("db_project/users")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllUsers(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllUsers(){
         return usrs.getAllUsers();
     }
 
     @GET
     @Path("db_project/users/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getAllResourcesById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getAllResourcesById(@PathParam("id") int id){
         return usrs.getUserById(id);
+    }
+
+    @GET
+    @Path("db_project/users/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsersWith(@QueryParam("uID") @DefaultValue("-1") int uID,
+                                        @QueryParam("uFName") @DefaultValue("UNDECLARED") String uFName,
+                                        @QueryParam("uLName") @DefaultValue("UNDECLARED") String uLName,
+                                        @QueryParam("uGender") @DefaultValue("UNDECLARED") String uGender,
+                                        @QueryParam("uBirthDate") @DefaultValue("UNDECLARED") String uBirthDate,
+                                        @QueryParam("uRegion") @DefaultValue("UNDECLARED") String uRegion,
+                                        @QueryParam("uPhoneNumber") @DefaultValue("-1") int uPhoneNumber,
+                                        @QueryParam("uAddress") @DefaultValue("UNDECLARED") String uAddress,
+                                        @QueryParam("username") @DefaultValue("UNDECLARED") String username,
+                                        @QueryParam("password") @DefaultValue("UNDECLARED") String password){
+        return usrs.getUsersWithArg(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
     }
 
     @GET
     @Path("db_project/admins")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllAdmins(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllAdmins(){
         return admns.getAdminsNaturalJoinUser();
     }
 
     @GET
     @Path("db_project/admins/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getAdminById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getAdminById(@PathParam("id") int id){
         return admns.getAdminById(id);
     }
 
     @GET
     @Path("db_project/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllSuppliers(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllSuppliers(){
         return spplrs.getSuppliersNaturalJoinUser();
     }
 
     @GET
     @Path("db_project/suppliers/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getSupplierById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getSupplierById(@PathParam("id") int id){
         return spplrs.getSupplierById(id);
     }
 
     @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllRequesters(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllRequesters(){
         return rqstr.getRequestersNaturalJoinUser();
     }
 
     @GET
     @Path("db_project/requesters/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getRequesterById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getRequesterById(@PathParam("id") int id){
         return rqstr.getRequesterId(id);
     }
 
     @GET
     @Path("db_project/resources")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllResources(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllResources(){
         return rs.getAllResources();
     }
 
     @GET
     @Path("db_project/resources/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getResourceById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getResourceById(@PathParam("id") int id){
         return rs.getResourceById(id);
     }
 
     @GET
     @Path("db_project/inventory")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllInventory(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllInventory(){
         return inv.getAllInventory();
     }
 
     @GET
     @Path("db_project/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getInventoryById(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getInventoryById(@PathParam("id") int id){
         return inv.getInventoryById(id);
     }
 
@@ -142,20 +158,20 @@ public class Main {
     @GET
     @Path("db_project/reserve")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllReserves(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllReserves(){
         return res.getRequestersNaturalJoinInventory();
     }
 
     @GET
     @Path("db_project/reserve/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Hashtable<String, Object> getReserveId(@PathParam("id") int id){
+    public LinkedHashMap<String, Object> getReserveId(@PathParam("id") int id){
         return res.getReserveId(id);
     }
     @GET
     @Path("db_project/purchases")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getAllPurchases(){
+    public ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
         return purchasesH.getRequestersNatJPurchasesNatJInventory();
     }
 

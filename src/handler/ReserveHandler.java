@@ -3,12 +3,12 @@ package handler;
 import dao.ReserveDao;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 public class ReserveHandler {
 
-    public static Hashtable<String, Object> build_reserve_dic(Object[] row) {
-        Hashtable<String, Object> result = new Hashtable<>();
+    public static LinkedHashMap<String, Object> build_reserve_dic(Object[] row) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         result.put("reqID"       , row[0]);         //ID of the requester
         result.put("invID"       , row[1]);         //ID of the reserved resource
         result.put("resDate"     , row[2]);         //Date of the reservation
@@ -17,31 +17,31 @@ public class ReserveHandler {
         return result;
     }
 
-    public static ArrayList<Hashtable<String, Object>> getAllReserves() {
+    public static ArrayList<LinkedHashMap<String, Object>> getAllReserves() {
         ReserveDao rsrv = new ReserveDao();
         ArrayList<Object[]> rsrvList = rsrv.getAllReservations();
-        ArrayList<Hashtable<String, Object>> result = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
         for (int i = 0; i < rsrvList.size(); i++) {
             result.add(build_reserve_dic(rsrvList.get(i)));
         }
         return result;
     }
 
-    public static Hashtable<String, Object> getReserveId(int id) {
+    public static LinkedHashMap<String, Object> getReserveId(int id) {
         ReserveDao rsrv = new ReserveDao();
         ArrayList<Object[]> rsrvList = rsrv.getAllReservations();
         return build_reserve_dic(rsrvList.get(id));
     }
 
-    public static ArrayList<Hashtable<String, Object>> getRequestersNaturalJoinInventory() {
+    public static ArrayList<LinkedHashMap<String, Object>> getRequestersNaturalJoinInventory() {
         RequestersHandler requestersHandler = new RequestersHandler();
         InventoryHandler inventoryHandler = new InventoryHandler();
 
-        ArrayList<Hashtable<String, Object>> reserve    = getAllReserves();
-        ArrayList<Hashtable<String, Object>> requesters = requestersHandler.getAllRequesters();
-        ArrayList<Hashtable<String, Object>> inventory  = inventoryHandler.getAllInventory();
-        ArrayList<Hashtable<String, Object>> reqNIJrsv  = new ArrayList<>();
-        ArrayList<Hashtable<String, Object>> result     = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> reserve    = getAllReserves();
+        ArrayList<LinkedHashMap<String, Object>> requesters = requestersHandler.getAllRequesters();
+        ArrayList<LinkedHashMap<String, Object>> inventory  = inventoryHandler.getAllInventory();
+        ArrayList<LinkedHashMap<String, Object>> reqNIJrsv  = new ArrayList<>();
+        ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
 
         for (int i = 0; i < reserve.size(); i++) {
             for (int j = 0; j < requesters.size(); j++) {
