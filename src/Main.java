@@ -237,11 +237,11 @@ public class Main {
     @GET
     @Path("db_project/inventory/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getInventoryWithArg(@QueryParam("rqstsID") @DefaultValue("-1") int rqstsID,
-                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty,
+    public Response getInventoryWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                        @QueryParam("resID") @DefaultValue("-1") int resQty,
                                         @QueryParam("rqstsDate") @DefaultValue("UNDECLARED") String rqstsDate,
-                                        @QueryParam("reqID") @DefaultValue("-1") int reqID){
-        return requestsH.getRequestsWithArg(rqstsID, rqstsQty, rqstsDate, reqID);
+                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
+        return requestsH.getRequestsWithArg(reqID, resID, rqstsDate, rqstsQty);
     }
 
 }
