@@ -201,6 +201,18 @@ public class Main {
     public LinkedHashMap<String, Object> getReserveId(@PathParam("id") int id){
         return res.getReserveId(id);
     }
+
+    @GET
+    @Path("db_project/reserve/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getInventoryWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                        @QueryParam("invID") @DefaultValue("-1") int invID,
+                                        @QueryParam("resDate") @DefaultValue("UNDECLARED") String resDate,
+                                        @QueryParam("resExpDate") @DefaultValue("UNDECLARED") String resExpDate,
+                                        @QueryParam("resQty") @DefaultValue("-1") int resQty){
+        return res.getReserveWithArg(reqID, invID, resDate, resExpDate, resQty);
+    }
+
     @GET
     @Path("db_project/purchases")
     @Produces(MediaType.APPLICATION_JSON)
