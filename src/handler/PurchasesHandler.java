@@ -10,10 +10,10 @@ public class PurchasesHandler {
 
     public static Hashtable<String, Object> build_purchases_dic(Object[] row){
         Hashtable<String, Object> result = new Hashtable<>();
-        result.put("purchaseID", row[0]);
-        result.put("requesterID", row[1]);
-        result.put("inventoryID", row[2]);
-        result.put("purchaseAmount", row[3]);
+        result.put("requesterID", row[0]);
+        result.put("inventoryID", row[1]);
+        result.put("purchaseAmount", row[2]);
+        result.put("purchaseDate", row[3]);
         return result;
     }
 
@@ -31,44 +31,24 @@ public class PurchasesHandler {
 
 
     public static ArrayList<Hashtable<String, Object>> getRequestersNatJPurchasesNatJInventory(){
-        //RequestersHandler requesterH = new RequestersHandler();
-        //InventoryHandler inventoryH = new InventoryHandler();
-        //UsersHandler userH = new UsersHandler();
-        //ResourcesHandler resourceH = new ResourcesHandler();
+        RequestersHandler requesterH = new RequestersHandler();
+        InventoryHandler inventoryH = new InventoryHandler();
 
-        //ArrayList<Hashtable<String, Object>> users = userH.getAllUsers();
-        // ArrayList<Hashtable<String, Object>> resource = resourceH.getAllResources();
-        //ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
-        //ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
         ArrayList<Hashtable<String, Object>> purchases = getAllPurchases();
+        ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
+        ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
+
         ArrayList<Hashtable<String, Object>> results = new ArrayList<>();
 
         for(int i = 0; i < purchases.size(); i++){
 
             Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
 
-            allUserInfoFromPurchase.put("purchaseID", purchases.get(i).get("purchaseID"));
             allUserInfoFromPurchase.put("requesterID", purchases.get(i).get("requesterID"));
             allUserInfoFromPurchase.put("inventoryID", purchases.get(i).get("inventoryID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
-
-            // for(int j = 0; j < 4; j++){
-            //     allUserInfoFromPurchase.putAll(purchases.get(j));
-            // }
-
-           /* for(int j = 0; j < requesters.size(); j++){
-                if(purchases.get(i).get("requesterID") == requesters.get(j).get("reqID")){
-                    Hashtable<String, Object> user = userH.getAllUsersById((Integer) requesters.get(j).get("uID"));
-                    allUserInfoFromPurchase.putAll(user);
-                }
-            }*/
-            /*for(int j = 0; j < inventory.size(); j++){
-                if(purchases.get(i).get("inventoryID") == inventory.get(j).get("invID")){
-                    Hashtable<String, Object> resource = resourceH.getResourceById(inventory.get(j).get(""))
-                            inventoryH.getInventoryById(requesters.get(j).get("uID"));
-                    allUserInfoFromPurchase.putAll(user);
-                }
-            }*/
+            allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
+            
             results.add(allUserInfoFromPurchase);
         }
         return results;
@@ -81,28 +61,28 @@ public class PurchasesHandler {
         ArrayList<Object[]> testPurchases = new ArrayList<>();
 
         Object[] purchase1 = new Object[4];
-        purchase1[0] = 0;
-        purchase1[1] = 1;
-        purchase1[2] = 0;
-        purchase1[3] = 20;
+        purchase1[0] = 1;
+        purchase1[1] = 0;
+        purchase1[2] = 20;
+        purchase1[3] = "12/2/2016";
 
         Object[] purchase2 = new Object[4];
-        purchase2[0] = 1;
+        purchase2[0] = 0;
         purchase2[1] = 0;
-        purchase2[2] = 0;
-        purchase2[3] = 10;
+        purchase2[2] = 10;
+        purchase2[3] = "07/25/2017";
 
         Object[] purchase3 = new Object[4];
-        purchase3[0] = 2;
-        purchase3[1] = 1;
-        purchase3[2] = 2;
-        purchase3[3] = 100;
+        purchase3[0] = 1;
+        purchase3[1] = 2;
+        purchase3[2] = 100;
+        purchase3[3] = "10/2/2017";
 
         Object[] purchase4 = new Object[4];
-        purchase4[0] = 3;
-        purchase4[1] = 0;
-        purchase4[2] = 1;
-        purchase4[3] = 25;
+        purchase4[0] = 0;
+        purchase4[1] = 1;
+        purchase4[2] = 25;
+        purchase4[3] = "02/14/2016";
 
         testPurchases.add(purchase1);
         testPurchases.add(purchase2);
