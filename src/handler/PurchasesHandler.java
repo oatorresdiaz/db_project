@@ -48,7 +48,7 @@ public class PurchasesHandler {
             allUserInfoFromPurchase.put("inventoryID", purchases.get(i).get("inventoryID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
             allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
-            
+
             results.add(allUserInfoFromPurchase);
         }
         return results;
