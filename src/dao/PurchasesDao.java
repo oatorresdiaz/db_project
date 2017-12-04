@@ -40,9 +40,9 @@ public class PurchasesDao {
     public ArrayList<Object[]> getPurchaseWithArg(LinkedHashMap<String, Object> argsDic) {
         Object[] keys = argsDic.keySet().toArray();
         String query;
-        if(argsDic.size() == 1) query = "select * from Purchases where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
+        if(argsDic.size() == 1) query = "select * from purchases where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
         else{
-            query = "select * from Purchases where " + keys[0] + " = " + argsDic.get(keys[0]);
+            query = "select * from purchases where " + keys[0] + " = " + argsDic.get(keys[0]);
             for(int i = 1; i < argsDic.size(); i++){
                 query += " and " + keys[i] + " = " + argsDic.get(keys[i]);
             }
