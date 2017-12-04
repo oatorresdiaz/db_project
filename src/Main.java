@@ -31,7 +31,7 @@ public class Main {
     private static RequestsHandler reqstHndlr = new RequestsHandler();
 
     private static ReserveHandler res = new ReserveHandler();
-    private static PurchasesHandler purchasesH = new PurchasesHandler();
+    private static PurchasesHandler prchs = new PurchasesHandler();
 
     public static void main(String[] args){
 
@@ -221,13 +221,6 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/purchases")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
-        return purchasesH.getRequestersNatJPurchasesNatJInventory();
-    }
-
-    @GET
     @Path("db_project/requests")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllRequests(){return reqstHndlr.getAllRequests();
@@ -248,6 +241,13 @@ public class Main {
                                         @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
                                         @QueryParam("reqID") @DefaultValue("-1") int reqID){
         return reqstHndlr.getRequestsWithArg(rqstID, rqstQty, rqstDate, reqID);
+    }
+
+    @GET
+    @Path("db_project/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<LinkedHashMap<String, Object>> getAllPurchases(){
+        return prchs.getRequestersNatJPurchasesNatJInventory();
     }
 
 }
