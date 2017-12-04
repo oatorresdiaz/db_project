@@ -132,6 +132,14 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/requesters/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRequestersWith(@QueryParam("reqID") @DefaultValue("-1") int reqID,
+                                        @QueryParam("uID") @DefaultValue("-1") int uID){
+        return rqstr.getRequestersWithArg(reqID, uID);
+    }
+
+    @GET
     @Path("db_project/resources")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllResources(){
