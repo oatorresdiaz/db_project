@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 
 public class UsersHandler {
 
-    //hola
 
     public static LinkedHashMap<String, Object> build_users_dict(Object[] row){
         LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
