@@ -50,7 +50,7 @@ public class PurchasesHandler {
 
             Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
 
-            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqID"));
+            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqId"));
             allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
             allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
@@ -59,5 +59,4 @@ public class PurchasesHandler {
         }
         return results;
     }
-
 }
