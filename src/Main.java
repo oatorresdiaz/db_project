@@ -21,6 +21,8 @@ public class Main {
     private static RequestersHandler rqstr = new RequestersHandler();
     private static InventoryHandler inv = new InventoryHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
+    private static ReserveHandler res = new ReserveHandler();
+    private static PurchasesHandler purchasesH = new PurchasesHandler();
 
     public static void main(String[] args){
 
@@ -136,5 +138,26 @@ public class Main {
     public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") Integer invID, @QueryParam("suppID") Integer suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") Integer invQty, @QueryParam("invPrice") Double invPrice, @QueryParam("invReserved") String invReserved){
         return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
     }
+
+    @GET
+    @Path("db_project/reserve")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllReserves(){
+        return res.getRequestersNaturalJoinInventory();
+    }
+
+    @GET
+    @Path("db_project/reserve/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Hashtable<String, Object> getReserveId(@PathParam("id") int id){
+        return res.getReserveId(id);
+    }
+    @GET
+    @Path("db_project/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllPurchases(){
+        return purchasesH.getRequestersNatJPurchasesNatJInventory();
+    }
+
 
 }
