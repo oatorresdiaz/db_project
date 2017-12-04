@@ -12,10 +12,10 @@ public class PurchasesHandler {
 
     public static Hashtable<String, Object> build_purchases_dic(Object[] row){
         Hashtable<String, Object> result = new Hashtable<>();
-        result.put("purchaseID", row[0]);
-        result.put("requesterID", row[1]);
-        result.put("inventoryID", row[2]);
-        result.put("purchaseAmount", row[3]);
+        result.put("reqID", row[0]);
+        result.put("invID", row[1]);
+        result.put("purchaseAmount", row[2]);
+        result.put("purchaseDate", row[3]);
         return result;
     }
 
@@ -37,49 +37,27 @@ public class PurchasesHandler {
 
 
     public static ArrayList<Hashtable<String, Object>> getRequestersNatJPurchasesNatJInventory(){
-        //RequestersHandler requesterH = new RequestersHandler();
-        //InventoryHandler inventoryH = new InventoryHandler();
-        //UsersHandler userH = new UsersHandler();
-        //ResourcesHandler resourceH = new ResourcesHandler();
+        RequestersHandler requesterH = new RequestersHandler();
+        InventoryHandler inventoryH = new InventoryHandler();
 
-        //ArrayList<Hashtable<String, Object>> users = userH.getAllUsers();
-        // ArrayList<Hashtable<String, Object>> resource = resourceH.getAllResources();
-        //ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
-        //ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
         ArrayList<Hashtable<String, Object>> purchases = getAllPurchases();
+        ArrayList<Hashtable<String, Object>> requesters = requesterH.getAllRequesters();
+        ArrayList<Hashtable<String, Object>> inventory = inventoryH.getAllInventory();
+
         ArrayList<Hashtable<String, Object>> results = new ArrayList<>();
 
         for(int i = 0; i < purchases.size(); i++){
 
             Hashtable<String, Object> allUserInfoFromPurchase = new Hashtable<>();
 
-            allUserInfoFromPurchase.put("purchaseID", purchases.get(i).get("purchaseID"));
-            allUserInfoFromPurchase.put("requesterID", purchases.get(i).get("requesterID"));
-            allUserInfoFromPurchase.put("inventoryID", purchases.get(i).get("inventoryID"));
+            allUserInfoFromPurchase.put("reqID", purchases.get(i).get("reqId"));
+            allUserInfoFromPurchase.put("invID", purchases.get(i).get("invID"));
             allUserInfoFromPurchase.put("purchaseAmount", purchases.get(i).get("purchaseAmount"));
+            allUserInfoFromPurchase.put("purchaseDate", purchases.get(i).get("purchaseDate"));
 
-            // for(int j = 0; j < 4; j++){
-            //     allUserInfoFromPurchase.putAll(purchases.get(j));
-            // }
-
-           /* for(int j = 0; j < requesters.size(); j++){
-                if(purchases.get(i).get("requesterID") == requesters.get(j).get("reqID")){
-                    Hashtable<String, Object> user = userH.getAllUsersById((Integer) requesters.get(j).get("uID"));
-                    allUserInfoFromPurchase.putAll(user);
-                }
-            }*/
-            /*for(int j = 0; j < inventory.size(); j++){
-                if(purchases.get(i).get("inventoryID") == inventory.get(j).get("invID")){
-                    Hashtable<String, Object> resource = resourceH.getResourceById(inventory.get(j).get(""))
-                            inventoryH.getInventoryById(requesters.get(j).get("uID"));
-                    allUserInfoFromPurchase.putAll(user);
-                }
-            }*/
             results.add(allUserInfoFromPurchase);
         }
         return results;
     }
-
-
 
 }

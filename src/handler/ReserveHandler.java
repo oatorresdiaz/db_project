@@ -36,7 +36,6 @@ public class ReserveHandler {
     public static ArrayList<Hashtable<String, Object>> getRequestersNaturalJoinInventory() {
         RequestersHandler requestersHandler = new RequestersHandler();
         InventoryHandler inventoryHandler = new InventoryHandler();
-        ReserveHandler reserveHandler = new ReserveHandler();
 
         ArrayList<Hashtable<String, Object>> reserve    = getAllReserves();
         ArrayList<Hashtable<String, Object>> requesters = requestersHandler.getAllRequesters();

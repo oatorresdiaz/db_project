@@ -1,5 +1,7 @@
+import com.sun.deploy.xml.GeneralEntity;
 import handler.*;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericEntity;
@@ -83,13 +85,6 @@ public class Main {
         return spplrs.getSupplierById(id);
     }
 
-    /*@GET
-    @Path("db_project/suppliers/inventory")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getInventoryBySuppliers(){
-        return inv.getInventoryBySuppliers();
-    }*/
-
     @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
@@ -132,12 +127,17 @@ public class Main {
         return inv.getInventoryById(id);
     }
 
-    /*@GET
+    @GET
     @Path("db_project/inventory/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Hashtable<String, Object>> getInventoryByArgument(@QueryParam("invID") Integer invID, @QueryParam("suppID") Integer suppID, @QueryParam("invDate") String invDate, @QueryParam("invQty") Integer invQty, @QueryParam("invPrice") Double invPrice, @QueryParam("invReserved") String invReserved){
-        return inv.getInventoryByArgument(invID, suppID, invDate, invQty, invPrice, invReserved);
-    }*/
+    public Response getInventoryWithArg(@QueryParam("invID") @DefaultValue("-1") int invID,
+                                        @QueryParam("suppID") @DefaultValue("-1") int suppID,
+                                        @QueryParam("invDate") @DefaultValue("UNDECLARED") String invDate,
+                                        @QueryParam("invQty") @DefaultValue("-1") int invQty,
+                                        @QueryParam("invPrice") @DefaultValue("-1") int invPrice,
+                                        @QueryParam("invReserved") @DefaultValue("-1") int invReserved){
+        return inv.getInventoryWithArg(invID, suppID, invDate, invQty, invPrice, invReserved);
+    }
 
     @GET
     @Path("db_project/reserve")
