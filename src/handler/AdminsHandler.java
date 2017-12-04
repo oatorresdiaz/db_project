@@ -2,6 +2,8 @@ package handler;
 
 import dao.AdminsDao;
 
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -11,6 +13,13 @@ public class AdminsHandler {
         LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
         result.put("adminID", row[0]);
         result.put("uID", row[1]);
+        return result;
+    }
+
+    private LinkedHashMap<String,Object> build_goodArg_dic(int adminID, int uID) {
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        if(adminID != -1) result.put("adminID", adminID);
+        if(uID != -1) result.put("uID", uID);
         return result;
     }
 
@@ -43,5 +52,19 @@ public class AdminsHandler {
             }
         }
         return result;
+    }
+
+    public Response getAdminsWithArg(int adminID, int uID) {
+        LinkedHashMap<String, Object> argDic = build_goodArg_dic(adminID, uID);
+        AdminsDao admns = new AdminsDao();
+        ArrayList<Object[]> admnsList = admns.getAminsWithArg(argDic);
+        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
+        for(int i = 0; i < admnsList.size(); i++){
+            resultList.add(build_admins_dic(admnsList.get(i)));
+        }
+        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
+        return Response.ok(entity).build();
     }
 }

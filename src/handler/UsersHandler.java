@@ -59,7 +59,6 @@ public class UsersHandler {
 
     public Response getUsersWithArg(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
-        System.out.println(argDic.toString());
         UsersDao users = new UsersDao();
         ArrayList<Object[]> usersList = users.getUsersWithArg(argDic);
         ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();

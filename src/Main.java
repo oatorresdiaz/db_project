@@ -77,7 +77,7 @@ public class Main {
     @Path("db_project/admins")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllAdmins(){
-        return admns.getAdminsNaturalJoinUser();
+        return admns.getAllAdmins();
     }
 
     @GET
@@ -85,6 +85,14 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public LinkedHashMap<String, Object> getAdminById(@PathParam("id") int id){
         return admns.getAdminById(id);
+    }
+
+    @GET
+    @Path("db_project/admins/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsersWith(@QueryParam("adminID") @DefaultValue("-1") int adminID,
+                                 @QueryParam("uID") @DefaultValue("-1") int uID){
+        return admns.getAdminsWithArg(adminID, uID);
     }
 
     @GET
@@ -99,6 +107,14 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public LinkedHashMap<String, Object> getSupplierById(@PathParam("id") int id){
         return spplrs.getSupplierById(id);
+    }
+
+    @GET
+    @Path("db_project/suppliers/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSuppliersWithArg(@QueryParam("suppID") @DefaultValue("-1") int suppID,
+                                 @QueryParam("uID") @DefaultValue("-1") int uID){
+        return spplrs.getSuppliersWithArg(suppID, uID);
     }
 
     @GET
