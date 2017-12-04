@@ -32,6 +32,7 @@ public class Main {
 
     private static ReserveHandler res = new ReserveHandler();
     private static PurchasesHandler purchasesH = new PurchasesHandler();
+    private static RequestsHandler requestsH = new RequestsHandler();
 
     public static void main(String[] args){
 
