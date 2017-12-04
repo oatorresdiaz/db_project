@@ -18,6 +18,7 @@ public class Main {
     private static InventoryHandler inv = new InventoryHandler();
     private static ResourcesHandler rs = new ResourcesHandler();
     private static ReserveHandler res = new ReserveHandler();
+    private static PurchasesHandler purchasesH = new PurchasesHandler();
 
     public static void main(String[] args){
 
@@ -149,4 +150,12 @@ public class Main {
     public Hashtable<String, Object> getReserveId(@PathParam("id") int id){
         return res.getReserveId(id);
     }
+    @GET
+    @Path("db_project/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Hashtable<String, Object>> getAllPurchases(){
+        return purchasesH.getRequestersNatJPurchasesNatJInventory();
+    }
+
+
 }
