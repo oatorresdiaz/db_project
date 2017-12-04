@@ -1,5 +1,7 @@
 package handler;
 
+import dao.PurchasesDao;
+
 import java.util.ArrayList;
 //import java.util.HashMap;
 import java.util.Hashtable;
@@ -18,15 +20,19 @@ public class PurchasesHandler {
     }
 
     public static ArrayList<Hashtable<String, Object>> getAllPurchases(){
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestPurchases().size(); i++){
-            result.add(build_purchases_dic(getTestPurchases().get(i)));
+        for(int i = 0; i < prchsList.size(); i++){
+            result.add(build_purchases_dic(prchsList.get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getPurchaseById(int id){
-        return build_purchases_dic(getTestPurchases().get(id));
+        PurchasesDao prchs = new PurchasesDao();
+        ArrayList<Object[]> prchsList = prchs.getAllPurchases();
+        return build_purchases_dic(prchsList.get(id));
     }
 
 

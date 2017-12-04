@@ -1,5 +1,7 @@
 package handler;
 
+import dao.SuppliersDao;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -15,15 +17,19 @@ public class SuppliersHandler {
     }
 
     public static ArrayList<Hashtable<String, Object>> getAllSuppliers(){
+        SuppliersDao spplrs = new SuppliersDao();
+        ArrayList<Object[]> spplrsList = spplrs.getAllSuppliers();
         ArrayList<Hashtable<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < getTestSuppliers().size(); i++){
-            result.add(build_suppliers_dic(getTestSuppliers().get(i)));
+        for(int i = 0; i < spplrsList.size(); i++){
+            result.add(build_suppliers_dic(spplrsList.get(i)));
         }
         return result;
     }
 
     public static Hashtable<String, Object> getSupplierById(int id){
-        return build_suppliers_dic(getTestSuppliers().get(id));
+        SuppliersDao spplrs = new SuppliersDao();
+        ArrayList<Object[]> spplrsList = spplrs.getAllSuppliers();
+        return build_suppliers_dic(spplrsList.get(id));
     }
 
     public static ArrayList<Hashtable<String, Object>> getSuppliersNaturalJoinUser(){
@@ -41,24 +47,4 @@ public class SuppliersHandler {
         return result;
     }
 
-    //FOR TESTING PURPOSES
-    public static ArrayList<Object[]> getTestSuppliers() {
-        Object[] supp1 = new Object[4];
-        supp1[0] = 0;
-        supp1[1] = 1;
-
-        Object[] supp2 = new Object[4];
-        supp2[0] = 1;
-        supp2[1] = 2;
-
-        Object[] supp3 = new Object[4];
-        supp3[0] = 2;
-        supp3[1] = 3;
-
-        ArrayList<Object[]> testSuppliers = new ArrayList<Object[]>();
-        testSuppliers.add(supp1);
-        testSuppliers.add(supp2);
-        testSuppliers.add(supp3);
-        return testSuppliers;
-    }
 }
