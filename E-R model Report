@@ -24,10 +24,6 @@ Entities:
             date added, total quantity in stock, the quantity that is reserved,
             the quantity available and it's price.
             
-  Requests - Contains the needed resources of the requesters (not paired with a supplier).
-            Includes the quantity of resources that are requested and date at which the
-            it was made. The primary key is rqstID.
-            
 Relations:
 
 Admin/Supplier/Requester - subcategories of the user entity
@@ -42,7 +38,9 @@ Reserves - The resources reserved by a requester from the available stock in the
             while deriving an expiration date for the reservation (will return the reserved
             resources to the available invertory)
             
-Requested - Resources asked for by the requesters
+Requests - Contains the needed resources of the requesters (not paired with a supplier).
+            Includes the quantity of resources that are requested and the date at which
+            it was made. The primary key is rqstsID.
 
 isResource - Guarantees that the resources in the inventory and requests are part
               of the Resource entity.

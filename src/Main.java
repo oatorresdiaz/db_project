@@ -1,13 +1,8 @@
-import com.sun.deploy.xml.GeneralEntity;
 import handler.*;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -85,6 +80,8 @@ public class Main {
         return spplrs.getSupplierById(id);
     }
 
+    
+
     @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
@@ -152,6 +149,9 @@ public class Main {
     public Hashtable<String, Object> getReserveId(@PathParam("id") int id){
         return res.getReserveId(id);
     }
+
+
+
     @GET
     @Path("db_project/purchases")
     @Produces(MediaType.APPLICATION_JSON)
