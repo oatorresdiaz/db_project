@@ -393,32 +393,52 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/user/supplier")
+    @Path("db_project/users/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJSupplier() {
-        ArrayList<LinkedHashMap<String, Object>> users = usrs.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
-        String key = "uID";
-        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
-
-        result = listNIJ(users, suppliers, key);
-
+    public Response usersNIJSupplier() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
                 };
         return Response.ok(entity).build();
     }
 
-/*
     @GET
-    @Path("db_project/user/admin")
+    @Path("db_project/users/admins")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJAdmins() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllAdmins().getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
 
     @GET
-    @Path("db_project/user/requesters")
+    @Path("db_project/users/requesters")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJRequesters() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllRequesters().getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
 
-    @GET
+
+    /*@GET
     @Path("db_project/user/supplier/inventory")
     @Produces(MediaType.APPLICATION_JSON)
 
