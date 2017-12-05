@@ -71,7 +71,7 @@ public class PurchasesHandler {
         return results;
     }
 
-    public Response getPurchaseWithArg(int reqID, int invID, String purchaseDate, int purchaseQty) {
+    public ArrayList<LinkedHashMap<String, Object>> getPurchaseWithArg(int reqID, int invID, String purchaseDate, int purchaseQty) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, invID, purchaseDate, purchaseQty);
         PurchasesDao prchs = new PurchasesDao();
         ArrayList<Object[]> prchsList = prchs.getPurchaseWithArg(argDic);
@@ -79,9 +79,6 @@ public class PurchasesHandler {
         for(int i = 0; i < prchsList.size(); i++){
             resultList.add(build_purchases_dic(prchsList.get(i)));
         }
-        if(resultList.isEmpty()) return Response.status(404).build();
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList){};
-        return Response.ok(entity).build();
+        return resultList;
     }
 }

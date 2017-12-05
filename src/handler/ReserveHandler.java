@@ -79,7 +79,7 @@ public class ReserveHandler {
         return ID;
     }
 
-    public Response getReserveWithArg(int reqID, int invID, String resDate, String resExpDate, int resQty) {
+    public ArrayList<LinkedHashMap<String, Object>> getReserveWithArg(int reqID, int invID, String resDate, String resExpDate, int resQty) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, invID, resDate, resExpDate, resQty);
         ReserveDao rsrv = new ReserveDao();
         ArrayList<Object[]> rsrvList = rsrv.getReserveWithArg(argDic);
@@ -87,9 +87,6 @@ public class ReserveHandler {
         for(int i = 0; i < rsrvList.size(); i++){
             resultList.add(build_reserve_dic(rsrvList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
     }
 }

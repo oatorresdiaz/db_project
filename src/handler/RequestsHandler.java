@@ -63,7 +63,7 @@ public class RequestsHandler {
     }
 
     //done 6
-    public Response getRequestsWithArg(int reqID, int resID, String rqstsDate, int rqstsQty) {
+    public ArrayList<LinkedHashMap<String, Object>> getRequestsWithArg(int reqID, int resID, String rqstsDate, int rqstsQty) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, resID, rqstsDate, rqstsQty);
         RequestsDao rqsts = new RequestsDao();
         ArrayList<Object[]> rqstsList = rqsts.getRequestsWithArg(argDic);
@@ -71,10 +71,7 @@ public class RequestsHandler {
         for(int i = 0; i < rqstsList.size(); i++){
             resultList.add(build_requests_dic(rqstsList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
     }
 
 

@@ -62,7 +62,7 @@ public class InventoryHandler {
 
     }
 
-    public Response getInventoryWithArg(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved) {
+    public ArrayList<LinkedHashMap<String, Object>> getInventoryWithArg(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(invID, suppID, invDate, invQty, invPrice, invReserved);
         InventoryDao inv = new InventoryDao();
         ArrayList<Object[]> invList = inv.getInventoryWithArg(argDic);
@@ -70,10 +70,7 @@ public class InventoryHandler {
         for(int i = 0; i < invList.size(); i++){
             resultList.add(build_inventory_dic(invList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
     }
 
 
