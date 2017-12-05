@@ -367,53 +367,14 @@ public class Main {
     @GET
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJSupplier(){
-
-        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
-        String key = "uID";
-        ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
-
-        result = listNIJ(users, suppliers, key);
-
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-               new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
-        return Response.ok(entity).build();
-    }
 
     @GET
     @Path("db_project/user/admin")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJAdmin(){
-
-        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> admns = admns.getAllAdmins();
-        String key = "uID";
-        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
-
-        result = listNIJ(users, admns, key);
-
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
-        return Response.ok(entity).build();
-    }
 
     @GET
     @Path("db_project/user/requesters")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJRequesters(){
-
-        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> requester = rqstr.getAllRequesters();
-        String key = "uID";
-        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
-
-        result = listNIJ(users, requester, key);
-
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
-        return Response.ok(entity).build();
-    }
 
     @GET
     @Path("db_project/user/supplier/inventory")
@@ -499,19 +460,7 @@ public class Main {
     @Path("db_project/user/requesters/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
 
-private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2, String key){
-    ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
-    LinkedHashMap<String, Object> element;
-    for (int i = 0; i < list1.size(); i++) {
-        for (int j = 0; j < list2.size(); j++) {
-            if (list1.get(i).get(key) == list2.get(j).get(key)) {
-                element = JLHM.joinWithEqualArg(list1.get(i), list2.get(j), key);
-                result.add(element);
-            }
-        }
-    }
-    return result;
-}
+
 
 
 
