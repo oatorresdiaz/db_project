@@ -421,7 +421,6 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-
     @GET
     @Path("db_project/users/requesters")
     @Produces(MediaType.APPLICATION_JSON)
@@ -436,29 +435,21 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-
     @GET
     @Path("db_project/users/suppliers/inventory")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSuppliersNIJInventory() {
-        ArrayList<LinkedHashMap<String, Object>> partialResult =
-                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
-                        "uID");
-        ArrayList<LinkedHashMap<String, Object>> finalResult =
-                listNIJ(partialResult, (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(), "suppID");
-
-
-        if (finalResult.isEmpty()) return get404ErrorMessage();
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSupplier().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(),
+                        "suppID");
+        if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(finalResult) {};
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
         return Response.ok(entity).build();
     }
 
-    /*@GET
-    @Path("db_project/user/supplier/inventory/resources")
-    @Produces(MediaType.APPLICATION_JSON)
-*/
     @GET
     @Path("db_project/users/requesters/reserve")
     @Produces(MediaType.APPLICATION_JSON)
