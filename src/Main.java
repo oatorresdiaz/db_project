@@ -624,7 +624,11 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
 
     @GET
-    @Path("db_project/user/requesters/resources/with")
+    @Path("db_project/user/requesters/requests/with")
+    @Produces(MediaType.APPLICATION_JSON)
+
+    @GET
+    @Path("db_project/user/requesters/requests/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
     */
 
