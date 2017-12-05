@@ -33,7 +33,6 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
-
     private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args) {
@@ -482,27 +481,70 @@ public class Main {
 /*    @GET
     @Path("db_project/user/requesters/reserve/inventory")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJReserveNIJInventory() {
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRes = (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJReserve().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJReqNIJRes, "invID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJReserveNIJInventoryNIJResources() {
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJResNIJInv =
+                (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJReserveNIJInventory().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReqNIJResNIJInv, "resID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/requesters/purchases")
     @Produces(MediaType.APPLICATION_JSON)
+              public Response userNIJRequesterNIJPurchases(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReq =
+                    (ArrayList<LinkedHashMap<String, Object>>) userNIJRequester().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(prchs.getAllPurchases(), userNIJReq, "reqID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJPurchasesNIJInventory(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJPur =
+                (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJPurchases().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJReqNIJPur, "invID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
+
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/resources")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJPurchasesNIJInventoryNIJResources(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJPurNIJInv =
+                (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJPurchasesNIJInventory().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReqNIJPurNIJInv, "resID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/requesters/resources")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJPurchases(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReq =
+                (ArrayList<LinkedHashMap<String, Object>>) userNIJRequester().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReq, "resID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
+    /*
     @GET
     @Path("db_project/user/supplier/with")
     @Produces(MediaType.APPLICATION_JSON)
@@ -566,7 +608,7 @@ public class Main {
         return result;
     }
 
-    private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list){
+    private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list) {
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {};
         return entity;
