@@ -41,21 +41,6 @@ public class RequestersHandler {
         return build_requesters_dic(rqstrsList.get(id));
     }
 
-    /*public static ArrayList<LinkedHashMap<String, Object>> getRequestersNaturalJoinUser(){
-        UsersHandler userHandler = new UsersHandler();
-        ArrayList<LinkedHashMap<String, Object>> users = userHandler.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> requesters = getAllRequesters();
-        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < requesters.size(); i++){
-            for(int j = 0; j < users.size(); j++){
-                if(requesters.get(i).get("uID") == users.get(j).get("uID")){
-                    result.add(users.get(j));
-                }
-            }
-        }
-        return result;
-    }*/
-
     public ArrayList<LinkedHashMap<String, Object>> getRequestersWithArg(int reqID, int uID) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, uID);
         RequestersDao spplrs = new RequestersDao();
