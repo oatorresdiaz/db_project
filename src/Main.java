@@ -129,7 +129,7 @@ public class Main {
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllRequesters(){
-        return rqstr.getRequestersNaturalJoinUser();
+        return rqstr.getAllRequesters();
     }
 
     @GET
@@ -200,7 +200,7 @@ public class Main {
     @Path("db_project/reserve")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<LinkedHashMap<String, Object>> getAllReserves(){
-        return rsrv.getRequestersNaturalJoinInventory();
+        return rsrv.getAllReserves();
     }
 
     @GET
@@ -260,6 +260,8 @@ public class Main {
                                         @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
         return rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
     }
+
+
 
     @GET
     @Path("db_project/user/supplier")

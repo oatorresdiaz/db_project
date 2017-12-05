@@ -40,15 +40,19 @@ public class UsersHandler {
         return result;
     }
 
-    public static ArrayList<LinkedHashMap<String, Object>> getAllUsers(){
+    public static ArrayList<LinkedHashMap<String,Object>> getAllUsers(){
         UsersDao usrs = new UsersDao();
         ArrayList<Object[]> usrsList = usrs.getAllUsers();
         ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
         for(int i = 0; i < usrsList.size(); i++){
             result.add(build_users_dict(usrsList.get(i)));
         }
+        /*GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();*/
         return result;
     }
+
 
     public static LinkedHashMap<String, Object> getUserById(int id){
         UsersDao usrs = new UsersDao();
