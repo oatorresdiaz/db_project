@@ -19,7 +19,7 @@ public class JoinLinkedHashMaps {
             }
             for(int i = 0; i < map2.size(); i++){
                 if(mapKeys2[i] != sameKey) {
-                    joinedList.put((String) mapKeys2[i], map2.get(mapKeys2));
+                    joinedList.put((String) mapKeys2[i], map2.get(mapKeys2[i]));
                 }
             }
         }

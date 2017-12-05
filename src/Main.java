@@ -368,14 +368,22 @@ public class Main {
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier(){
-        LinkedHashMap<String, Object> map1 = usrs.getAttributes();
-        LinkedHashMap<String, Object> map2 = spplrs.getAttributes();
-        LinkedHashMap<String, Object> result = JLHM.joinWithEqualArg(map1, map2, "uID");
+ 
+        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
+        ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
+        LinkedHashMap<String, Object> element;
+        for (int i = 0; i < users.size(); i++) {
+            for (int j = 0; j < suppliers.size(); j++) {
+                if (users.get(i).get("uID") == suppliers.get(j).get("uID")) {
+                    element = JLHM.joinWithEqualArg(users.get(i), suppliers.get(j), "uID");
+                    result.add(element);
+                }
+            }
+        }
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(usrs.getAllUsers()) {};
-
-        return result;
-
+               new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
 /*
