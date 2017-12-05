@@ -319,6 +319,18 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPurchases() {
+        ArrayList<LinkedHashMap<String, Object>> result = prchs.getAllPurchases();
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
+    @GET
     @Path("db_project/purchases/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPurchasesById(@PathParam("id") int id) {
@@ -424,8 +436,7 @@ public class Main {
                         "uID");
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
-                };
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
         return Response.ok(entity).build();
     }
 
@@ -715,7 +726,8 @@ public class Main {
 
     private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list){
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {};
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {
+                };
         return entity;
     }
 
@@ -723,6 +735,14 @@ public class Main {
         if(entity.equals("users")) return getAllUsers();
         else if(entity.equals("admins")) return getAllAdmins();
         else if(entity.equals("suppliers")) return getAllSuppliers();
+        else if(entity.equals("admins")) return getAllAdmins();
+        else if(entity.equals("requesters")) return getAllRequesters();
+        else if(entity.equals("inventory")) return getAllInventory();
+        else if(entity.equals("requests")) return getAllRequests();
+        else if(entity.equals("reserve")) return getAllReserves();
+        else if(entity.equals("purchases")) return getAllPurchases();
+        else if(entity.equals("resources")) return getAllResources();
+
         return null;
     }
 
