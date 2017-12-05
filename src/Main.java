@@ -555,7 +555,7 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/users/requesters/requests/resources")
+    @Path("db_project/{parameter: users/requesters/requests/resources|requesters/requests/resources}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJRequestersNIJResources(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRqst =
