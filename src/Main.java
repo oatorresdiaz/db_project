@@ -451,6 +451,21 @@ public class Main {
     }
 
     @GET
+    @Path("db_project/users/suppliers/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJSuppliersNIJInventoryNIJResources() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSuppliersNIJInventory().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllResources().getEntity(),
+                        "resID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
+    @GET
     @Path("db_project/users/requesters/reserve")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJRequestersNIJReserve() {
