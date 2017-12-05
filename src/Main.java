@@ -362,77 +362,108 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-    /*@GET
+    @GET
     @Path("db_project/user/supplier")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserNaturalJoinSupplier(){
+        ArrayList<LinkedHashMap<String, Object>> result = spplrs.getUserNaturalJoinSupplier();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/admin")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/admin/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
-    @Path("db_project/user/requesters/resources/with")*/
+    @Path("db_project/user/requesters/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
 
 
