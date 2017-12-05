@@ -1,17 +1,10 @@
-import com.sun.deploy.xml.GeneralEntity;
 import handler.*;
-
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.*;
-import javax.xml.ws.Service;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
 import utilities.JoinLinkedHashMaps;
-//import utilities.QueryParamUtility;
+import utilities.QueryParamUtility;
 
 
 //Main URI path
@@ -564,8 +557,7 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-/*
-    @GET
+    /*@GET
     @Path("db_project/users/suppliers/with")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSupplierWithArg(@Context UriInfo uriInfo) {
@@ -578,7 +570,22 @@ public class Main {
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
                 };
         QueryParamUtility qpu = new QueryParamUtility();
-        qpu.findQueryParam("users", "suppliers", uriInfo);
+        if(qpu.findQueryParam("users", "suppliers", uriInfo).isEmpty()) return get404ErrorMessage();
+        return Response.ok(entity).build();
+    }*/
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @Context UriInfo uriInfo) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getResponse(entity1).getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
         return Response.ok(entity).build();
     }
 
@@ -650,6 +657,12 @@ public class Main {
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {
                 };
         return entity;
+    }
+
+    public Response getResponse(String entity){
+        if(entity.equals("users")) return getAllUsers();
+        else if(entity.equals("suppliers")) return getAllSuppliers();
+        return null;
     }
 
 }
