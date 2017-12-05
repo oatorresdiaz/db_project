@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class UsersHandler {
+    public static LinkedHashMap<String, Object> result;
 
 
     public static LinkedHashMap<String, Object> build_users_dict(Object[] row){
-        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+        result = new LinkedHashMap<String, Object>();
         result.put("uID", row[0]);
         result.put("uFName", row[1]);
         result.put("uLName", row[2]);
@@ -22,6 +23,10 @@ public class UsersHandler {
         result.put("uAddress", row[7]);
         result.put("username", row[8]);
         result.put("password", row[9]);
+        return result;
+    }
+
+    public static LinkedHashMap<String, Object> getAttributes(){
         return result;
     }
 

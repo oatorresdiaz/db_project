@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class SuppliersHandler {
+    public static LinkedHashMap<String, Object> result;
+
 
     public static LinkedHashMap<String, Object> build_suppliers_dic(Object[] row){
-        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+        result = new LinkedHashMap<String, Object>();
         result.put("suppID", row[0]);
         result.put("uID", row[1]);
         //result.put("suppLat", row[2]); WHY IS THIS HERE?
         //result.put("suppLong", row[3]); WHY IS THIS HERE?
+        return result;
+    }
+
+    public static LinkedHashMap<String, Object> getAttributes(){
         return result;
     }
 

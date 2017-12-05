@@ -32,6 +32,7 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
+
     private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args){
@@ -366,7 +367,6 @@ public class Main {
 
     @GET
     @Path("db_project/user/supplier")
-<<<<<<< .merge_file_cX8YXi
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserNaturalJoinSupplier(){
         ArrayList<LinkedHashMap<String, Object>> result = spplrs.getUserNaturalJoinSupplier();
@@ -375,11 +375,9 @@ public class Main {
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
         return Response.ok(entity).build();
     }
-||||||| .merge_file_rpL5Z1
-=======
+
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier(){
- 
         ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
         ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
         ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
@@ -396,9 +394,7 @@ public class Main {
                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
         return Response.ok(entity).build();
     }
->>>>>>> .merge_file_TEXuOc
 
-/*
     @GET
     @Path("db_project/user/admin")
     @Produces(MediaType.APPLICATION_JSON)
@@ -490,9 +486,5 @@ public class Main {
     @GET
     @Path("db_project/user/requesters/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
-
-
-
-
 
 }
