@@ -633,10 +633,10 @@ public class Main {
     @GET
     @Path("db_project/nij/{entity1}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response entity1NIJentity2(@PathParam("entity1") String entity1) {
+    public Response entity1(@PathParam("entity1") String entity1) {
         ArrayList<LinkedHashMap<String, Object>> list = (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity1).getEntity();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(list);
-        if(usrs.getAllUsers().isEmpty()) return get404ErrorMessage();
+        if(list.isEmpty()) return get404ErrorMessage();
         return Response.ok(entity).build();
     }
 
