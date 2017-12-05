@@ -23,10 +23,12 @@ public class ReserveDao {
 
         Object[] res3 = new Object[5];
         res3[0] = 1;
-        res3[1] = 2;
+        res3[1] = 0;
         res3[2] = "09/09/2017";
         res3[3] = "09/11/2017";
         res3[4] = 20;
+
+
 
         ArrayList<Object[]> testReserves = new ArrayList<>();
         testReserves.add(res1);
