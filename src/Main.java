@@ -366,7 +366,7 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-    /*@GET
+    @GET
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier() {
