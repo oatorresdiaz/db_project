@@ -40,9 +40,9 @@ public class ReserveDao {
 
     public ArrayList<Object[]> getReserveWithArg(LinkedHashMap<String, Object> argsDic) {
         Object[] keys = argsDic.keySet().toArray();
-        String query;
+        String query = "";
         if(argsDic.size() == 1) query = "select * from reserve where " + keys[0] + " = " + argsDic.get(keys[0]) + ";";
-        else{
+        else if (argsDic.size() > 1){
             query = "select * from reserve where " + keys[0] + " = " + argsDic.get(keys[0]);
             for(int i = 1; i < argsDic.size(); i++){
                 query += " and " + keys[i] + " = " + argsDic.get(keys[i]);
