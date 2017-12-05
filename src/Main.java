@@ -394,7 +394,7 @@ public class Main {
     @GET
     @Path("db_project/users/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJSupplier() {
+    public Response usersNIJSuppliers() {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
                         (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
@@ -442,7 +442,7 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSuppliersNIJInventory() {
         ArrayList<LinkedHashMap<String, Object>> result =
-                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity(),
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSuppliers().getEntity(),
                         (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(),
                         "suppID");
         if (result.isEmpty()) return get404ErrorMessage();
@@ -557,7 +557,7 @@ public class Main {
     @GET
     @Path("db_project/users/requesters/requests/resources")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJRequesterNIJResources(){
+    public Response usersNIJRequestersNIJResources(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRqst =
                 (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequestersNIJRequests().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReqNIJRqst, "resID");
