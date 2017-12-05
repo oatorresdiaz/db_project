@@ -259,4 +259,80 @@ public class Main {
         return rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
     }
 
+    @GET
+    @Path("db_project/user/supplier")
+
+    @GET
+    @Path("db_project/user/admin")
+
+    @GET
+    @Path("db_project/user/requesters")
+
+    @GET
+    @Path("db_project/user/supplier/inventory")
+
+    @GET
+    @Path("db_project/user/supplier/inventory/resources")
+
+    @GET
+    @Path("db_project/user/requesters/reserve")
+
+    @GET
+    @Path("db_project/user/requesters/reserve/inventory")
+
+    @GET
+    @Path("db_project/user/requesters/reserve/inventory/resources")
+
+    @GET
+    @Path("db_project/user/requesters/purchases")
+
+    @GET
+    @Path("db_project/user/requesters/purchases/inventory")
+
+    @GET
+    @Path("db_project/user/requesters/purchases/inventory/resources")
+
+    @GET
+    @Path("db_project/user/requesters/resources")
+
+    @GET
+    @Path("db_project/user/supplier/with")
+
+    @GET
+    @Path("db_project/user/admin/with")
+
+    @GET
+    @Path("db_project/user/requesters/with")
+
+    @GET
+    @Path("db_project/user/supplier/inventory/with")
+
+    @GET
+    @Path("db_project/user/supplier/inventory/resources/with")
+
+    @GET
+    @Path("db_project/user/requesters/reserve/with")
+
+    @GET
+    @Path("db_project/user/requesters/reserve/inventory/with")
+
+    @GET
+    @Path("db_project/user/requesters/reserve/inventory/resources/with")
+
+    @GET
+    @Path("db_project/user/requesters/purchases/with")
+
+    @GET
+    @Path("db_project/user/requesters/purchases/inventory/with")
+
+    @GET
+    @Path("db_project/user/requesters/purchases/inventory/resources/with")
+
+    @GET
+    @Path("db_project/user/requesters/resources/with")
+
+
+
+
+
 }
