@@ -389,11 +389,18 @@ public class Main {
     @GET
     @Path("db_project/user/requesters")
     @Produces(MediaType.APPLICATION_JSON)
-
+*/
     @GET
     @Path("db_project/user/supplier/inventory")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJInventory(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJSupp = (ArrayList<LinkedHashMap<String, Object>>) userNIJSupplier().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJSupp, "suppID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
 
+/*
     @GET
     @Path("db_project/user/supplier/inventory/resources")
     @Produces(MediaType.APPLICATION_JSON)
