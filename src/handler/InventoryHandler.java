@@ -16,11 +16,12 @@ public class InventoryHandler {
         LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
         result.put("invID", row[0]);
         result.put("suppID", row[1]);
-        result.put("invDate", row[2]);
-        result.put("invQty", row[3]);
-        result.put("invPrice", row[4]);
-        result.put("invReserved", row[5]);
-        result.put("invAvailable", row[6]);
+        result.put("resID", row[2]);
+        result.put("invDate", row[3]);
+        result.put("invQty", row[4]);
+        result.put("invPrice", row[5]);
+        result.put("invReserved", row[6]);
+        result.put("invAvailable", row[7]);
         return result;
     }
 

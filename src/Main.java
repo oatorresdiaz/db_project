@@ -58,8 +58,7 @@ public class Main {
     public Response getAllUsers() {
         if (usrs.getAllUsers().isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(usrs.getAllUsers()) {
-                };
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(usrs.getAllUsers()) {};
         return Response.ok(entity).build();
     }
 
@@ -428,6 +427,20 @@ public class Main {
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
                         (ArrayList<LinkedHashMap<String, Object>>) getAllRequesters().getEntity(),
                         "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/users/suppliers/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJSuppliersNIJInventory() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSupplier().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(),
+                        "suppID");
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
