@@ -11,6 +11,7 @@ import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import utilities.JoinLinkedHashMaps;
 
 
 //Main URI path
@@ -31,6 +32,7 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
+    private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args){
 
@@ -261,6 +263,15 @@ public class Main {
 
     @GET
     @Path("db_project/user/supplier")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJSupplier(){
+        LinkedHashMap<String, Object> map1 = usrs.getAllUsers();
+
+        LinkedHashMap<String, Object> result = JLHM.joinWithEqualArg(map1, map2, sameKey);
+        return result;
+
+    }
+
 
     @GET
     @Path("db_project/user/admin")
