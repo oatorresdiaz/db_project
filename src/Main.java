@@ -355,8 +355,9 @@ public class Main {
     @Path("db_project/requests/with")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRequestWithArg(@QueryParam("reqID") @DefaultValue("-1") int reqID,
-                                        @QueryParam("resID") @DefaultValue("-1") int resID, QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
-                                        @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
+                                      @QueryParam("resID") @DefaultValue("-1") int resID,
+                                      @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
+                                      @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
         ArrayList<LinkedHashMap<String, Object>> result = rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
         if(result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
@@ -409,17 +410,17 @@ public class Main {
     }
 
 
-    /*@GET
+    @GET
     @Path("db_project/user/supplier/inventory")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJInventory(){
+    public Response userNIJSupplierNIJInventory(){
         ArrayList<LinkedHashMap<String, Object>> userNIJSupp = (ArrayList<LinkedHashMap<String, Object>>) userNIJSupplier().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJSupp, "suppID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
     }
-
-/    @GET
+    /*
+    @GET
     @Path("db_project/user/supplier/inventory/resources")
     @Produces(MediaType.APPLICATION_JSON)
 
