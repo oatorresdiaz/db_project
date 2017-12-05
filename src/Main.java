@@ -11,6 +11,7 @@ import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import utilities.JoinLinkedHashMaps;
 
 
 //Main URI path
@@ -31,6 +32,7 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
+    private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args){
 
@@ -364,6 +366,7 @@ public class Main {
 
     @GET
     @Path("db_project/user/supplier")
+<<<<<<< .merge_file_cX8YXi
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserNaturalJoinSupplier(){
         ArrayList<LinkedHashMap<String, Object>> result = spplrs.getUserNaturalJoinSupplier();
@@ -372,7 +375,30 @@ public class Main {
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
         return Response.ok(entity).build();
     }
+||||||| .merge_file_rpL5Z1
+=======
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJSupplier(){
+ 
+        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
+        ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
+        LinkedHashMap<String, Object> element;
+        for (int i = 0; i < users.size(); i++) {
+            for (int j = 0; j < suppliers.size(); j++) {
+                if (users.get(i).get("uID") == suppliers.get(j).get("uID")) {
+                    element = JLHM.joinWithEqualArg(users.get(i), suppliers.get(j), "uID");
+                    result.add(element);
+                }
+            }
+        }
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+               new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
+>>>>>>> .merge_file_TEXuOc
 
+/*
     @GET
     @Path("db_project/user/admin")
     @Produces(MediaType.APPLICATION_JSON)
