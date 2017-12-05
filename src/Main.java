@@ -368,7 +368,7 @@ public class Main {
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier(){
- 
+
         ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
         ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
         ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
