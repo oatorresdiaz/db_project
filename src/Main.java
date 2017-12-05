@@ -33,6 +33,7 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
+
     private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args) {
@@ -58,8 +59,7 @@ public class Main {
     public Response getAllUsers() {
         if (usrs.getAllUsers().isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(usrs.getAllUsers()) {
-                };
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(usrs.getAllUsers()) {};
         return Response.ok(entity).build();
     }
 
@@ -394,6 +394,16 @@ public class Main {
     @GET
     @Path("db_project/users/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJSupplier() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
     public Response userNIJSupplier() {
         ArrayList<LinkedHashMap<String, Object>> users = usrs.getAllUsers();
         ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
@@ -430,41 +440,58 @@ public class Main {
                         "uID");
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
+
+
+    @GET
+    @Path("db_project/users/suppliers/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJSuppliersNIJInventory() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSupplier().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(),
+                        "suppID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
                 };
         return Response.ok(entity).build();
     }
 
-
     @GET
-    @Path("db_project/user/supplier/inventory")
+    @Path("db_project/users/suppliers/inventory/resources")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJSupplierNIJInventory() {
-        ArrayList<LinkedHashMap<String, Object>> userNIJSupp = (ArrayList<LinkedHashMap<String, Object>>) userNIJSupplier().getEntity();
-        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJSupp, "suppID");
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+    public Response usersNIJSuppliersNIJInventoryNIJResources() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSuppliersNIJInventory().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllResources().getEntity(),
+                        "resID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
         return Response.ok(entity).build();
     }
 
-    /*
-     @GET
-     @Path("db_project/user/supplier/inventory/resources")
-     @Produces(MediaType.APPLICATION_JSON)
-
-     /*
-     @GET
-     @Path("db_project/user/requesters/reserve")
-     @Produces(MediaType.APPLICATION_JSON)
- */
     @GET
+    @Path("db_project/users/requesters/reserve")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJRequestersNIJReserve() {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllReserves().getEntity(),
+                        "reqID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
+
+/*    @GET
     @Path("db_project/user/requesters/reserve/inventory")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJRequesterNIJReserveNIJInventory() {
-        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRes = (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJReserve().getEntity();
-        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJReqNIJRes, "invID");
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
-        return Response.ok(entity).build();
-    }
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources")
@@ -599,14 +626,11 @@ public class Main {
         return result;
     }
 
-    private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list) {
+    private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list){
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {
-                };
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(list) {};
         return entity;
     }
-
-
 
 
 }
