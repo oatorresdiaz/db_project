@@ -383,7 +383,7 @@ public class Main {
                 };
         return Response.ok(entity).build();
     }
-
+/*
     @GET
     @Path("db_project/users/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
@@ -574,7 +574,7 @@ public class Main {
         if(qpu.findQueryParam("users", "suppliers", uriInfo).isEmpty()) return get404ErrorMessage();
         return Response.ok(entity).build();
     }
-
+*/
     /*@GET
     @Path("db_project/user/admin/with")
     @Produces(MediaType.APPLICATION_JSON)
@@ -632,8 +632,7 @@ public class Main {
     public Response entity1NIJentity2(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2) {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) getResponse(entity1).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
-                        "uID");
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity());
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
@@ -647,8 +646,7 @@ public class Main {
     public Response entity1NIJentity2NIJentity3(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3) {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2(entity1, entity2).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
-                        "uID");
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity());
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
@@ -662,8 +660,7 @@ public class Main {
     public Response entity1NIJentity2NIJentity3NIJentity4(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4) {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3(entity1, entity2, entity3).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity4).getEntity(),
-                        "uID");
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity4).getEntity());
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
@@ -677,8 +674,7 @@ public class Main {
     public Response entity1NIJentity2NIJentity3NIJentity4NIJentity5(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4, @PathParam("entity5") String entity5) {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3NIJentity4(entity1, entity2, entity3, entity4).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity5).getEntity(),
-                        "uID");
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity5).getEntity());
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
@@ -686,7 +682,8 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-    private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2, String key) {
+    private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2) {
+        String key = sameKey(list1, list2);
         ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
         LinkedHashMap<String, Object> element;
         for (int i = 0; i < list1.size(); i++) {
@@ -699,6 +696,22 @@ public class Main {
         }
         return result;
     }
+
+    private static String sameKey(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2) {
+        Object[] attributes1 = list1.get(0).keySet().toArray();
+        Object[] attributes2 = list2.get(0).keySet().toArray();
+
+        for (int i = 0; i < attributes1.length; i++) {
+            for (int j = 0; j < attributes2.length; j++) {
+                if (attributes1[i] == attributes2[j]) {
+                    String result = (String) attributes1[i];
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+
 
     private static GenericEntity<ArrayList<LinkedHashMap<String, Object>>> GE(ArrayList<LinkedHashMap<String, Object>> list){
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
