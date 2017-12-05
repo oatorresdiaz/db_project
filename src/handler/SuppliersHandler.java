@@ -56,7 +56,7 @@ public class SuppliersHandler {
         return result;
     }
 
-    public Response getSuppliersWithArg(int suppID, int uID) {
+    public ArrayList<LinkedHashMap<String, Object>> getSuppliersWithArg(int suppID, int uID) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(suppID, uID);
         SuppliersDao spplrs = new SuppliersDao();
         ArrayList<Object[]> spplrsList = spplrs.getSuppliersWithArg(argDic);
@@ -64,9 +64,6 @@ public class SuppliersHandler {
         for(int i = 0; i < spplrsList.size(); i++){
             resultList.add(build_suppliers_dic(spplrsList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
     }
 }

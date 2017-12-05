@@ -41,7 +41,7 @@ public class ResourcesHandler {
         return build_resources_dict(rsrsList.get(id));
     }
 
-    public Response getResourcesWithArg(int reqID, String resCategory, String resSubCategory) {
+    public ArrayList<LinkedHashMap<String, Object>> getResourcesWithArg(int reqID, String resCategory, String resSubCategory) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, resCategory, resSubCategory);
         ResourcesDao rs = new ResourcesDao();
         ArrayList<Object[]> rsList = rs.getResourcesWithArg(argDic);
@@ -49,10 +49,6 @@ public class ResourcesHandler {
         for (int i = 0; i < rsList.size(); i++) {
             resultList.add(build_resources_dict(rsList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList) {
-                };
-        return Response.ok(entity).build();
+        return resultList;
     }
 }
