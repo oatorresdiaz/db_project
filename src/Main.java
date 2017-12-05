@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import utilities.JoinLinkedHashMaps;
 
-import utilities.JoinLinkedHashMaps;
-
 
 //Main URI path
 @Path("/")
@@ -480,7 +478,7 @@ public class Main {
     @GET
     @Path("db_project/user/requesters/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("db_project/user/requesters/resources/with")*/
+    */
 
     private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2, String key) {
         ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
