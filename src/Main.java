@@ -393,7 +393,6 @@ public class Main {
 
     @GET
     @Path("db_project/users/suppliers")
-<<<<<<<<< Temporary merge branch 1
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSuppliers() {
         ArrayList<LinkedHashMap<String, Object>> result =
