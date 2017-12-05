@@ -19,6 +19,17 @@ public class QueryParamUtility {
     public QueryParamUtility(){
     }
 
+    public LinkedHashMap<String , Object> build_goorArg_dic(LinkedHashMap<String , Object> dic){
+        Object[] keySet =  dic.keySet().toArray();
+        for(int i = 0; i < keySet.length; i++){
+            if(dic.get(keySet[i]).equals(-1) || dic.get(keySet[i]) == "UNDECLARED"){
+                dic.remove(keySet[i]);
+            }
+        }
+        System.out.println(dic);
+        return dic;
+    }
+
     public LinkedHashMap<String , LinkedHashMap<String , Object>> getEntities(){
         entities.put("users", getUserAttributes());
         entities.put("admins", adms);
@@ -78,17 +89,6 @@ public class QueryParamUtility {
         }
         e1.putAll(e2);
         return build_goorArg_dic(e1);
-    }
-
-    public LinkedHashMap<String , Object> build_goorArg_dic(LinkedHashMap<String , Object> dic){
-        Object[] keySet =  dic.keySet().toArray();
-        for(int i = 0; i < keySet.length; i++){
-            if(dic.get(keySet[i]).equals(-1) || dic.get(keySet[i]) == "UNDECLARED"){
-                dic.remove(keySet[i]);
-            }
-        }
-        System.out.println(dic);
-        return dic;
     }
 
 }
