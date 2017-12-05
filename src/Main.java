@@ -471,6 +471,7 @@ public class Main {
     @GET
     @Path("db_project/user/requesters/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
+    */
 
     private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2, String key) {
         ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
