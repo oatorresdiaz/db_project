@@ -15,7 +15,7 @@ public class JoinLinkedHashMaps {
             Object[] mapKeys2 = map2.keySet().toArray();
 
             for(int i = 0; i < map1.size(); i++){
-                joinedList.put((String) mapKeys1[i], map1.get(mapKeys1));
+                joinedList.put((String) mapKeys1[i], map1.get(mapKeys1[i]));
             }
             for(int i = 0; i < map2.size(); i++){
                 if(mapKeys2[i] != sameKey) {

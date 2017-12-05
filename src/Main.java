@@ -319,19 +319,21 @@ public class Main {
         return rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
     }
 
-    /*@GET
+    @GET
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier(){
         LinkedHashMap<String, Object> map1 = usrs.getAttributes();
         LinkedHashMap<String, Object> map2 = spplrs.getAttributes();
         LinkedHashMap<String, Object> result = JLHM.joinWithEqualArg(map1, map2, "uID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(usrs.getAllUsers()) {};
 
         return result;
 
     }
 
-
+/*
     @GET
     @Path("db_project/user/admin")
 
