@@ -544,15 +544,27 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/users/requesters/resources")
+    @Path("db_project/users/requesters/requests")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response usersNIJRequestersNIJResources(){
+    public Response usersNIJRequestersNIJRequests(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReq =
                 (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
-        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReq, "resID");
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rqsts.getAllRequests(), userNIJReq, "reqID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
     }
+
+    @GET
+    @Path("db_project/users/requesters/requests/resources")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesterNIJResources(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRqst =
+                (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequestersNIJRequests().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReqNIJRqst, "resID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
+
 /*
     @GET
     @Path("db_project/users/suppliers/with")
