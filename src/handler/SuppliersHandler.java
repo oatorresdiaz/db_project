@@ -72,4 +72,10 @@ public class SuppliersHandler {
         }
         return resultList;
     }
+
+    public ArrayList<LinkedHashMap<String,Object>> getUserNaturalJoinSupplier() {
+        SuppliersDao spplrs = new SuppliersDao();
+
+        return spplrs.getUserNaturalJoinSupplier();
+    }
 }

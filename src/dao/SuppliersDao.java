@@ -37,4 +37,9 @@ public class SuppliersDao {
         System.out.println(query);
         return getAllSuppliers(); //HARD WIRED. IN PHASE II THE RETURN WILL MATCH THE QUERY.
     }
+
+    public ArrayList<LinkedHashMap<String,Object>> getUserNaturalJoinSupplier() {
+        String query = "select * from users natural inner join suppliers;";
+        return handler.SuppliersHandler.getAllSuppliers();
+    }
 }
