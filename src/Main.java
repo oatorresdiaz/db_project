@@ -11,6 +11,7 @@ import javax.xml.ws.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import utilities.JoinLinkedHashMaps;
 
 
 //Main URI path
@@ -31,6 +32,7 @@ public class Main {
     //Requester and Inventory relations
     private static ReserveHandler rsrv = new ReserveHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
+    private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();
 
     public static void main(String[] args){
 
@@ -52,21 +54,27 @@ public class Main {
     @GET
     @Path("db_project/users")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllUsers(){
-        return usrs.getAllUsers();
+    public Response getAllUsers(){
+        if(usrs.getAllUsers().isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(usrs.getAllUsers()) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/users/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getAllResourcesById(@PathParam("id") int id){
-        return usrs.getUserById(id);
+    public Response getAllResourcesById(@PathParam("id") int id){
+        if(usrs.getUserById(id).isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String,Object>>(usrs.getUserById(id)) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/users/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUsersWith(@QueryParam("uID") @DefaultValue("-1") int uID,
+    public Response getUsersWithArg(@QueryParam("uID") @DefaultValue("-1") int uID,
                                         @QueryParam("uFName") @DefaultValue("UNDECLARED") String uFName,
                                         @QueryParam("uLName") @DefaultValue("UNDECLARED") String uLName,
                                         @QueryParam("uGender") @DefaultValue("UNDECLARED") String uGender,
@@ -76,21 +84,33 @@ public class Main {
                                         @QueryParam("uAddress") @DefaultValue("UNDECLARED") String uAddress,
                                         @QueryParam("username") @DefaultValue("UNDECLARED") String username,
                                         @QueryParam("password") @DefaultValue("UNDECLARED") String password){
-        return usrs.getUsersWithArg(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
+        ArrayList<LinkedHashMap<String, Object>> result = usrs.getUsersWithArg(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/admins")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllAdmins(){
-        return admns.getAllAdmins();
+    public Response getAllAdmins(){
+        ArrayList<LinkedHashMap<String, Object>> result = admns.getAllAdmins();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/admins/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getAdminById(@PathParam("id") int id){
-        return admns.getAdminById(id);
+    public Response getAdminById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = admns.getAdminById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -98,21 +118,33 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAdminsWithArg(@QueryParam("adminID") @DefaultValue("-1") int adminID,
                                  @QueryParam("uID") @DefaultValue("-1") int uID){
-        return admns.getAdminsWithArg(adminID, uID);
+        ArrayList<LinkedHashMap<String, Object>> result = admns.getAdminsWithArg(adminID, uID);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/suppliers")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllSuppliers(){
-        return spplrs.getSuppliersNaturalJoinUser();
+    public Response getAllSuppliers(){
+        ArrayList<LinkedHashMap<String, Object>> result = spplrs.getAllSuppliers();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/suppliers/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getSupplierById(@PathParam("id") int id){
-        return spplrs.getSupplierById(id);
+    public Response getSupplierById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = spplrs.getSupplierById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -120,21 +152,33 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getSuppliersWithArg(@QueryParam("suppID") @DefaultValue("-1") int suppID,
                                  @QueryParam("uID") @DefaultValue("-1") int uID){
-        return spplrs.getSuppliersWithArg(suppID, uID);
+        ArrayList<LinkedHashMap<String, Object>> result = spplrs.getSuppliersWithArg(suppID, uID);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/requesters")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllRequesters(){
-        return rqstr.getAllRequesters();
+    public Response getAllRequesters(){
+        ArrayList<LinkedHashMap<String, Object>> result = rqstr.getAllRequesters();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/requesters/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getRequesterById(@PathParam("id") int id){
-        return rqstr.getRequesterId(id);
+    public Response getRequesterById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = rqstr.getRequesterId(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -142,44 +186,68 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getRequestersWith(@QueryParam("reqID") @DefaultValue("-1") int reqID,
                                         @QueryParam("uID") @DefaultValue("-1") int uID){
-        return rqstr.getRequestersWithArg(reqID, uID);
+        ArrayList<LinkedHashMap<String, Object>> result = rqstr.getRequestersWithArg(reqID, uID);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/resources")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllResources(){
-        return rs.getAllResources();
+    public Response getAllResources(){
+        ArrayList<LinkedHashMap<String, Object>> result = rs.getAllResources();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/resources/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getResourceById(@PathParam("id") int id){
-        return rs.getResourceById(id);
+    public Response getResourceById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = rs.getResourceById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getResourcesWith(@QueryParam("resID") @DefaultValue("-1") int reqID,
+    public Response getResourcesWith(@QueryParam("resID") @DefaultValue("-1") int resID,
                                      @QueryParam("resCategory") @DefaultValue("UNDECLARED") String resCategory,
                                      @QueryParam("resSubCategory") @DefaultValue("UNDECLARED") String resSubCategory){
-        return rs.getResourcesWithArg(reqID, resCategory, resSubCategory);
+        ArrayList<LinkedHashMap<String, Object>> result = rs.getResourcesWithArg(resID, resCategory, resSubCategory);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/inventory")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllInventory(){
-        return inv.getAllInventory();
+    public Response getAllInventory(){
+        ArrayList<LinkedHashMap<String, Object>> result = inv.getAllInventory();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getInventoryById(@PathParam("id") int id){
-        return inv.getInventoryById(id);
+    public Response getInventoryById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = inv.getInventoryById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>> (result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -191,21 +259,33 @@ public class Main {
                                         @QueryParam("invQty") @DefaultValue("-1") int invQty,
                                         @QueryParam("invPrice") @DefaultValue("-1") int invPrice,
                                         @QueryParam("invReserved") @DefaultValue("-1") int invReserved){
-        return inv.getInventoryWithArg(invID, suppID, invDate, invQty, invPrice, invReserved);
+        ArrayList<LinkedHashMap<String, Object>> result = inv.getInventoryWithArg(invID, suppID, invDate, invQty, invPrice, invReserved);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/reserve")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllReserves(){
-        return rsrv.getAllReserves();
+    public Response getAllReserves(){
+        ArrayList<LinkedHashMap<String, Object>> result = rsrv.getAllReserves();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/reserve/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getReserveId(@PathParam("id") int id){
-        return rsrv.getReserveId(id);
+    public Response getReserveId(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = rsrv.getReserveId(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -216,14 +296,22 @@ public class Main {
                                         @QueryParam("resDate") @DefaultValue("UNDECLARED") String resDate,
                                         @QueryParam("resExpDate") @DefaultValue("UNDECLARED") String resExpDate,
                                         @QueryParam("resQty") @DefaultValue("-1") int resQty){
-        return rsrv.getReserveWithArg(reqID, invID, resDate, resExpDate, resQty);
+        ArrayList<LinkedHashMap<String, Object>> result = rsrv.getReserveWithArg(reqID, invID, resDate, resExpDate, resQty);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/purchases/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getPurchasesById(@PathParam("id") int id){
-        return prchs.getPurchaseById(id);
+    public Response getPurchasesById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = prchs.getPurchaseById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -233,20 +321,33 @@ public class Main {
                                       @QueryParam("invID") @DefaultValue("-1") int invID,
                                       @QueryParam("prchsDate") @DefaultValue("UNDECLARED") String purchaseDate,
                                       @QueryParam("prchsQty") @DefaultValue("-1") int purchaseQty){
-        return prchs.getPurchaseWithArg(reqID, invID, purchaseDate, purchaseQty);
+        ArrayList<LinkedHashMap<String, Object>> result = prchs.getPurchaseWithArg(reqID, invID, purchaseDate, purchaseQty);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/requests")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllRequests(){return rqsts.getAllRequests();
+    public Response getAllRequests(){
+        ArrayList<LinkedHashMap<String, Object>> result = rqsts.getAllRequests();
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
     @Path("db_project/requests/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public LinkedHashMap<String, Object> getRequestsById(@PathParam("id") int id){
-        return rqsts.getRequestsById(id);
+    public Response getRequestsById(@PathParam("id") int id){
+        LinkedHashMap<String, Object> result = rqsts.getRequestsById(id);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<LinkedHashMap<String, Object>> entity =
+                new GenericEntity<LinkedHashMap<String, Object>>(result) {};
+        return Response.ok(entity).build();
     }
 
     @GET
@@ -256,82 +357,126 @@ public class Main {
                                         @QueryParam("resID") @DefaultValue("-1") int resID,
                                         @QueryParam("rqstDate") @DefaultValue("UNDECLARED") String rqstDate,
                                         @QueryParam("rqstsQty") @DefaultValue("-1") int rqstsQty){
-        return rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
+        ArrayList<LinkedHashMap<String, Object>> result = rqsts.getRequestsWithArg(reqID, resID, rqstDate, rqstsQty);
+        if(result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {};
+        return Response.ok(entity).build();
     }
-
-
 
     @GET
     @Path("db_project/user/supplier")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJSupplier(){
+
+        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> suppliers = spplrs.getAllSuppliers();
+        ArrayList<LinkedHashMap<String, Object>> result     = new ArrayList<>();
+        LinkedHashMap<String, Object> element;
+        for (int i = 0; i < users.size(); i++) {
+            for (int j = 0; j < suppliers.size(); j++) {
+                if (users.get(i).get("uID") == suppliers.get(j).get("uID")) {
+                    element = JLHM.joinWithEqualArg(users.get(i), suppliers.get(j), "uID");
+                    result.add(element);
+                }
+            }
+        }
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+               new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/admin")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/resources")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/admin/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/supplier/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/reserve/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/purchases/inventory/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
     @GET
     @Path("db_project/user/requesters/resources/with")
+    @Produces(MediaType.APPLICATION_JSON)
 
 
 

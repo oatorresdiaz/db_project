@@ -17,9 +17,9 @@ public class ResourcesHandler {
         return result;
     }
 
-    private LinkedHashMap<String,Object> build_goodArg_dic(int reqID, String resCategory, String resSubCategory) {
+    private LinkedHashMap<String,Object> build_goodArg_dic(int resID, String resCategory, String resSubCategory) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        if(reqID != -1) result.put("reqID", reqID);
+        if(resID != -1) result.put("resID", resID);
         if(!resCategory.equals("UNDECLARED")) result.put("resCategory", resCategory);
         if(!resSubCategory.equals("UNDECLARED")) result.put("resSubCategory", resSubCategory);
         return result;
@@ -41,18 +41,14 @@ public class ResourcesHandler {
         return build_resources_dict(rsrsList.get(id));
     }
 
-    public Response getResourcesWithArg(int reqID, String resCategory, String resSubCategory) {
-        LinkedHashMap<String, Object> argDic = build_goodArg_dic(reqID, resCategory, resSubCategory);
+    public ArrayList<LinkedHashMap<String, Object>> getResourcesWithArg(int resID, String resCategory, String resSubCategory) {
+        LinkedHashMap<String, Object> argDic = build_goodArg_dic(resID, resCategory, resSubCategory);
         ResourcesDao rs = new ResourcesDao();
         ArrayList<Object[]> rsList = rs.getResourcesWithArg(argDic);
         ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
         for (int i = 0; i < rsList.size(); i++) {
             resultList.add(build_resources_dict(rsList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(resultList) {
-                };
-        return Response.ok(entity).build();
+        return resultList;
     }
 }

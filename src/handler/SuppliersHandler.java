@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class SuppliersHandler {
+    public static LinkedHashMap<String, Object> result;
+
 
     public static LinkedHashMap<String, Object> build_suppliers_dic(Object[] row){
-        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+        result = new LinkedHashMap<String, Object>();
         result.put("suppID", row[0]);
         result.put("uID", row[1]);
         //result.put("suppLat", row[2]); WHY IS THIS HERE?
         //result.put("suppLong", row[3]); WHY IS THIS HERE?
+        return result;
+    }
+
+    public static LinkedHashMap<String, Object> getAttributes(){
         return result;
     }
 
@@ -56,7 +62,7 @@ public class SuppliersHandler {
         return result;
     }
 
-    public Response getSuppliersWithArg(int suppID, int uID) {
+    public ArrayList<LinkedHashMap<String, Object>> getSuppliersWithArg(int suppID, int uID) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(suppID, uID);
         SuppliersDao spplrs = new SuppliersDao();
         ArrayList<Object[]> spplrsList = spplrs.getSuppliersWithArg(argDic);
@@ -64,9 +70,12 @@ public class SuppliersHandler {
         for(int i = 0; i < spplrsList.size(); i++){
             resultList.add(build_suppliers_dic(spplrsList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
+    }
+
+    public ArrayList<LinkedHashMap<String,Object>> getUserNaturalJoinSupplier() {
+        SuppliersDao spplrs = new SuppliersDao();
+
+        return spplrs.getUserNaturalJoinSupplier();
     }
 }

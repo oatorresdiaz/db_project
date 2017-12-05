@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class UsersHandler {
+    public static LinkedHashMap<String, Object> result;
 
 
     public static LinkedHashMap<String, Object> build_users_dict(Object[] row){
-        LinkedHashMap<String, Object> result = new LinkedHashMap<String, Object>();
+        result = new LinkedHashMap<String, Object>();
         result.put("uID", row[0]);
         result.put("uFName", row[1]);
         result.put("uLName", row[2]);
@@ -22,6 +23,10 @@ public class UsersHandler {
         result.put("uAddress", row[7]);
         result.put("username", row[8]);
         result.put("password", row[9]);
+        return result;
+    }
+
+    public static LinkedHashMap<String, Object> getAttributes(){
         return result;
     }
 
@@ -47,12 +52,8 @@ public class UsersHandler {
         for(int i = 0; i < usrsList.size(); i++){
             result.add(build_users_dict(usrsList.get(i)));
         }
-        /*GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
-        return Response.ok(entity).build();*/
         return result;
     }
-
 
     public static LinkedHashMap<String, Object> getUserById(int id){
         UsersDao usrs = new UsersDao();
@@ -60,7 +61,7 @@ public class UsersHandler {
         return build_users_dict(usrsList.get(id));
     }
 
-    public Response getUsersWithArg(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
+    public ArrayList<LinkedHashMap<String, Object>> getUsersWithArg(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
         UsersDao users = new UsersDao();
         ArrayList<Object[]> usersList = users.getUsersWithArg(argDic);
@@ -68,10 +69,7 @@ public class UsersHandler {
         for(int i = 0; i < usersList.size(); i++){
             resultList.add(build_users_dict(usersList.get(i)));
         }
-        if (resultList.isEmpty()) return Response.status(404).build(); //Malformed query string.
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(resultList) {};
-        return Response.ok(entity).build();
+        return resultList;
     }
 
 }
