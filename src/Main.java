@@ -569,7 +569,7 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-    /*@GET
+    @GET
     @Path("db_project/users/suppliers/with")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSupplierWithArg(@Context UriInfo uriInfo) {
@@ -583,21 +583,6 @@ public class Main {
                 };
         QueryParamUtility qpu = new QueryParamUtility();
         if(qpu.findQueryParam("users", "suppliers", uriInfo).isEmpty()) return get404ErrorMessage();
-        return Response.ok(entity).build();
-    }*/
-
-    @GET
-    @Path("db_project/nij/{entity1}/{entity2}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response entity1NIJentity2(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @Context UriInfo uriInfo) {
-        ArrayList<LinkedHashMap<String, Object>> result =
-                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getResponse(entity1).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
-                        "uID");
-        if (result.isEmpty()) return get404ErrorMessage();
-        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
-                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
-                };
         return Response.ok(entity).build();
     }
 
@@ -650,6 +635,68 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     */
 
+    //*******USING AUTOMATION***********//
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getResponse(entity1).getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2(entity1, entity2).getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}/{entity4}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3NIJentity4(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3(entity1, entity2, entity3).getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity4).getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}/{entity4}/{entity5}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3NIJentity4NIJentity5(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4, @PathParam("entity5") String entity5) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3NIJentity4(entity1, entity2, entity3, entity4).getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity5).getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        return Response.ok(entity).build();
+    }
+
     private static ArrayList<LinkedHashMap<String, Object>> listNIJ(ArrayList<LinkedHashMap<String, Object>> list1, ArrayList<LinkedHashMap<String, Object>> list2, String key) {
         ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
         LinkedHashMap<String, Object> element;
@@ -673,6 +720,7 @@ public class Main {
 
     public Response getResponse(String entity){
         if(entity.equals("users")) return getAllUsers();
+        else if(entity.equals("admins")) return getAllAdmins();
         else if(entity.equals("suppliers")) return getAllSuppliers();
         else if(entity.equals("admins")) return getAllAdmins();
         else if(entity.equals("requesters")) return getAllRequesters();
