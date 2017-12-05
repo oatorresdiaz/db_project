@@ -478,11 +478,11 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-/*    @GET
+    @GET
     @Path("db_project/user/requesters/reserve/inventory")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJRequesterNIJReserveNIJInventory() {
-        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRes = (ArrayList<LinkedHashMap<String, Object>>) userNIJRequesterNIJReserve().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRes = (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequestersNIJReserve().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(inv.getAllInventory(), userNIJReqNIJRes, "invID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
@@ -502,9 +502,9 @@ public class Main {
     @GET
     @Path("db_project/user/requesters/purchases")
     @Produces(MediaType.APPLICATION_JSON)
-              public Response userNIJRequesterNIJPurchases(){
+    public Response userNIJRequesterNIJPurchases(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReq =
-                    (ArrayList<LinkedHashMap<String, Object>>) userNIJRequester().getEntity();
+                    (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(prchs.getAllPurchases(), userNIJReq, "reqID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
@@ -536,9 +536,9 @@ public class Main {
     @GET
     @Path("db_project/user/requesters/resources")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJRequesterNIJPurchases(){
+    public Response userNIJRequesterNIJResources(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReq =
-                (ArrayList<LinkedHashMap<String, Object>>) userNIJRequester().getEntity();
+                (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReq, "resID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
