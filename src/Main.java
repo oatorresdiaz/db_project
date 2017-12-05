@@ -384,10 +384,36 @@ public class Main {
     @GET
     @Path("db_project/user/admin")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJAdmin(){
+
+        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> admns = admns.getAllAdmins();
+        String key = "uID";
+        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
+
+        result = listNIJ(users, admns, key);
+
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/requesters")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response userNIJRequesters(){
+
+        ArrayList<LinkedHashMap<String, Object>> users    = usrs.getAllUsers();
+        ArrayList<LinkedHashMap<String, Object>> requester = rqstr.getAllRequesters();
+        String key = "uID";
+        ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
+
+        result = listNIJ(users, requester, key);
+
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result) {};
+        return Response.ok(entity).build();
+    }
 
     @GET
     @Path("db_project/user/supplier/inventory")
