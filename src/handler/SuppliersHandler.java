@@ -47,21 +47,6 @@ public class SuppliersHandler {
         return build_suppliers_dic(spplrsList.get(id));
     }
 
-    public static ArrayList<LinkedHashMap<String, Object>> getSuppliersNaturalJoinUser(){
-        UsersHandler userHandler = new UsersHandler();
-        ArrayList<LinkedHashMap<String, Object>> users = userHandler.getAllUsers();
-        ArrayList<LinkedHashMap<String, Object>> suppliers = getAllSuppliers();
-        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < suppliers.size(); i++){
-            for(int j = 0; j < users.size(); j++){
-                if(suppliers.get(i).get("uID") == users.get(j).get("uID")){
-                    result.add(users.get(j));
-                }
-            }
-        }
-        return result;
-    }
-
     public ArrayList<LinkedHashMap<String, Object>> getSuppliersWithArg(int suppID, int uID) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(suppID, uID);
         SuppliersDao spplrs = new SuppliersDao();
