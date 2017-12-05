@@ -1,12 +1,11 @@
 import com.sun.deploy.xml.GeneralEntity;
+import com.sun.jndi.toolkit.url.Uri;
 import handler.*;
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import javax.xml.ws.Service;
 
 import java.util.ArrayList;
@@ -493,13 +492,25 @@ public class Main {
 
     @GET
     @Path("db_project/user/requesters/resources")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)*/
 
     @GET
-    @Path("db_project/user/supplier/with")
+    @Path("db_project/users/suppliers/with")
     @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJSupplierWithArg(@Context UriInfo uriInfo) {
+        ArrayList<LinkedHashMap<String, Object>> result =
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
+                        (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
+                        "uID");
+        if (result.isEmpty()) return get404ErrorMessage();
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
+                new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
+                };
+        System.out.println(uriInfo.getRequestUri().getQuery());
+        return Response.ok(entity).build();
+    }
 
-    @GET
+    /*@GET
     @Path("db_project/user/admin/with")
     @Produces(MediaType.APPLICATION_JSON)
 
@@ -557,5 +568,7 @@ public class Main {
         }
         return result;
     }
+
+    
 
 }
