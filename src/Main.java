@@ -703,7 +703,56 @@ public class Main {
         if (result.isEmpty()) return get404ErrorMessage();
         //With Arg
         QueryParamUtility qpu = new QueryParamUtility();
-        LinkedHashMap<String , Object> queryParam = qpu.findQueryParam(entity1, entity2, uriInfo);
+        LinkedHashMap<String , Object> queryParam = qpu.findQueryParam(entity1, entity2, null, null, null, uriInfo);
+        if (queryParam.isEmpty()) return get404ErrorMessage();
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3WithArg(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @Context UriInfo uriInfo) {
+        ArrayList<LinkedHashMap<String, Object>> list1 = (ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2(entity1, entity2).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> list2 = (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity3).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = hw.listNIJ(list1, list2);
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        if (result.isEmpty()) return get404ErrorMessage();
+        //With Arg
+        QueryParamUtility qpu = new QueryParamUtility();
+        LinkedHashMap<String , Object> queryParam = qpu.findQueryParam(entity1, entity2, entity3, null, null, uriInfo);
+        if (queryParam.isEmpty()) return get404ErrorMessage();
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}/{entity4}/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3NIJentity4WithArg(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4, @Context UriInfo uriInfo) {
+        ArrayList<LinkedHashMap<String, Object>> list1 = (ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3(entity1, entity2, entity3).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> list2 = (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity4).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = hw.listNIJ(list1, list2);
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        if (result.isEmpty()) return get404ErrorMessage();
+        //With Arg
+        QueryParamUtility qpu = new QueryParamUtility();
+        LinkedHashMap<String , Object> queryParam = qpu.findQueryParam(entity1, entity2, entity3, entity4, null, uriInfo);
+        if (queryParam.isEmpty()) return get404ErrorMessage();
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/nij/{entity1}/{entity2}/{entity3}/{entity4}/{entity5}/with")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response entity1NIJentity2NIJentity3NIJentity4NIJentity5(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3, @PathParam("entity4") String entity4, @PathParam("entity5") String entity5, @Context UriInfo uriInfo) {
+        ArrayList<LinkedHashMap<String, Object>> list1 = (ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2NIJentity3NIJentity4(entity1, entity2, entity3, entity4).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> list2 = (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity5).getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = hw.listNIJ(list1, list2);
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        if (result.isEmpty()) return get404ErrorMessage();
+        //With Arg
+        QueryParamUtility qpu = new QueryParamUtility();
+        LinkedHashMap<String , Object> queryParam = qpu.findQueryParam(entity1, entity2, entity3, entity4, entity5, uriInfo);
+        if (queryParam.isEmpty()) return get404ErrorMessage();
         return Response.ok(entity).build();
     }
 
