@@ -20,6 +20,7 @@ public class InventoryHandler {
         result.put("invQty", row[3]);
         result.put("invPrice", row[4]);
         result.put("invReserved", row[5]);
+        result.put("invAvailable", row[6]);
         return result;
     }
 

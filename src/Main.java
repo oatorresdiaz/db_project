@@ -1,14 +1,7 @@
-import com.sun.deploy.xml.GeneralEntity;
 import handler.*;
-
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.Service;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -55,13 +48,6 @@ public class Main {
     public ArrayList<LinkedHashMap<String,Object>> getAllUsers(){
         return usrs.getAllUsers();
     }
-
-    /*@GET
-    @Path("db_project/users")
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<LinkedHashMap<String, Object>> getAllUsers(){
-        return usrs.getAllUsers();
-    }*/
 
     @GET
     @Path("db_project/users/{id}")
