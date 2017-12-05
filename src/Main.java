@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import utilities.JoinLinkedHashMaps;
+import utilities.QueryParamUtility;
 
 
 //Main URI path
@@ -543,18 +544,29 @@ public class Main {
     }
 
     @GET
-    @Path("db_project/users/requesters/resources")
+    @Path("db_project/users/requesters/requests")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response usersNIJRequestersNIJResources(){
+    public Response usersNIJRequestersNIJRequests(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReq =
                 (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
-        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReq, "resID");
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rqsts.getAllRequests(), userNIJReq, "reqID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
     }
 
     @GET
-    @Path("db_project/userss/suppliers/with")
+    @Path("db_project/users/requesters/requests/resources")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response usersNIJRequestersNIJResources(){
+        ArrayList<LinkedHashMap<String, Object>> userNIJReqNIJRqst =
+                (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequestersNIJRequests().getEntity();
+        ArrayList<LinkedHashMap<String, Object>> result = listNIJ(rs.getAllResources(), userNIJReqNIJRqst, "resID");
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
+        return Response.ok(entity).build();
+    }
+
+    @GET
+    @Path("db_project/users/suppliers/with")
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSupplierWithArg(@Context UriInfo uriInfo) {
         ArrayList<LinkedHashMap<String, Object>> result =
@@ -565,7 +577,8 @@ public class Main {
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
                 };
-        System.out.println(uriInfo.getRequestUri().getQuery());
+        QueryParamUtility qpu = new QueryParamUtility();
+        if(qpu.findQueryParam("users", "suppliers", uriInfo).isEmpty()) return get404ErrorMessage();
         return Response.ok(entity).build();
     }
 

@@ -17,18 +17,18 @@ public class QueryParamUtility {
     private LinkedHashMap<String , Object> res = new LinkedHashMap<>(); //Resources
 
     public QueryParamUtility(){
-        entities.put("users", usrs);
-        entities.put("adms", adms);
-        entities.put("spplrs", spplrs);
-        entities.put("rqstrs", rqstrs);
-        entities.put("inv", inv);
-        entities.put("rqsts", rqsts);
-        entities.put("rsrv", rsrv);
-        entities.put("prchs", prchs);
-        entities.put("res", res);
     }
 
     public LinkedHashMap<String , LinkedHashMap<String , Object>> getEntities(){
+        entities.put("users", getUserAttributes());
+        entities.put("admins", adms);
+        entities.put("suppliers", getSupplierAttributes());
+        entities.put("requesters", rqstrs);
+        entities.put("inventory", inv);
+        entities.put("requests", rqsts);
+        entities.put("reserve", rsrv);
+        entities.put("purchases", prchs);
+        entities.put("resources", res);
         return entities;
     }
 
@@ -52,10 +52,43 @@ public class QueryParamUtility {
         return spplrs;
     }
 
-    public void fingQueryParam(String entity1, String entity2, UriInfo uriInfo){
+    public LinkedHashMap<String , Object> findQueryParam(String entity1, String entity2, UriInfo uriInfo){
         LinkedHashMap<String , Object>  e1 = getEntities().get(entity1);
         LinkedHashMap<String , Object>  e2 = getEntities().get(entity2);
-        String[] queries = uriInfo.toString().split("=");
+        LinkedHashMap<String , Object>  attributes = new LinkedHashMap<String , Object>();
+        String[] queries = uriInfo.getRequestUri().getQuery().split("&");
+        for(int i = 0; i < queries.length; i++){
+            String[] query = queries[i].split("=");
+            String key = query[0];
+            String value = query[1];
+            attributes.put(key, value);
+        }
+        Object[] keySet =  attributes.keySet().toArray();
+        for(int j = 0; j < keySet.length; j++){
+            if(e1.containsKey(keySet[j].toString())){
+                e1.put(keySet[j].toString(), attributes.get(keySet[j].toString()));
+            }
+            if(e2.containsKey(keySet[j].toString())){
+                e2.put(keySet[j].toString(), attributes.get(keySet[j].toString()));
+            }
+            if(!e1.containsKey(keySet[j].toString()) && !e2.containsKey(keySet[j].toString())){
+                e1.clear();
+                return e1; //RETURN EMPTY BECAUSE QUERY IS WRONG
+            }
+        }
+        e1.putAll(e2);
+        return build_goorArg_dic(e1);
+    }
+
+    public LinkedHashMap<String , Object> build_goorArg_dic(LinkedHashMap<String , Object> dic){
+        Object[] keySet =  dic.keySet().toArray();
+        for(int i = 0; i < keySet.length; i++){
+            if(dic.get(keySet[i]).equals(-1) || dic.get(keySet[i]) == "UNDECLARED"){
+                dic.remove(keySet[i]);
+            }
+        }
+        System.out.println(dic);
+        return dic;
     }
 
 }
