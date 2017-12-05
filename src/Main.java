@@ -657,7 +657,7 @@ public class Main {
     public Response entity1NIJentity2NIJentity3(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2, @PathParam("entity3") String entity3) {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) entity1NIJentity2(entity1, entity2).getEntity(),
-                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity2).getEntity());
+                        (ArrayList<LinkedHashMap<String, Object>>) getResponse(entity3).getEntity());
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity =
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
@@ -739,7 +739,7 @@ public class Main {
         else if(entity.equals("requesters")) return getAllRequesters();
         else if(entity.equals("inventory")) return getAllInventory();
         else if(entity.equals("requests")) return getAllRequests();
-        else if(entity.equals("reserve")) return getAllReserves();
+        else if(entity.equals("reserves")) return getAllReserves();
         else if(entity.equals("purchases")) return getAllPurchases();
         else if(entity.equals("resources")) return getAllResources();
 
