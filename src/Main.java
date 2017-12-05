@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import utilities.JoinLinkedHashMaps;
-import utilities.QueryParamUtility;
+//import utilities.QueryParamUtility;
 
 
 //Main URI path
@@ -393,8 +393,9 @@ public class Main {
 
     @GET
     @Path("db_project/users/suppliers")
+<<<<<<<<< Temporary merge branch 1
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userNIJSupplier() {
+    public Response usersNIJSuppliers() {
         ArrayList<LinkedHashMap<String, Object>> result =
                 listNIJ((ArrayList<LinkedHashMap<String, Object>>) getAllUsers().getEntity(),
                         (ArrayList<LinkedHashMap<String, Object>>) getAllSuppliers().getEntity(),
@@ -442,7 +443,7 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
     public Response usersNIJSuppliersNIJInventory() {
         ArrayList<LinkedHashMap<String, Object>> result =
-                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity(),
+                listNIJ((ArrayList<LinkedHashMap<String, Object>>) usersNIJSuppliers().getEntity(),
                         (ArrayList<LinkedHashMap<String, Object>>) getAllInventory().getEntity(),
                         "suppID");
         if (result.isEmpty()) return get404ErrorMessage();
@@ -512,9 +513,9 @@ public class Main {
     @GET
     @Path("db_project/users/requesters/purchases")
     @Produces(MediaType.APPLICATION_JSON)
-              public Response usersNIJRequestersNIJPurchases(){
+    public Response usersNIJRequestersNIJPurchases(){
         ArrayList<LinkedHashMap<String, Object>> userNIJReq =
-                    (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
+                (ArrayList<LinkedHashMap<String, Object>>) usersNIJRequesters().getEntity();
         ArrayList<LinkedHashMap<String, Object>> result = listNIJ(prchs.getAllPurchases(), userNIJReq, "reqID");
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(result);
         return Response.ok(entity).build();
@@ -565,6 +566,7 @@ public class Main {
         return Response.ok(entity).build();
     }
 
+/*
     @GET
     @Path("db_project/users/suppliers/with")
     @Produces(MediaType.APPLICATION_JSON)
@@ -578,7 +580,7 @@ public class Main {
                 new GenericEntity<ArrayList<LinkedHashMap<String, Object>>>(result) {
                 };
         QueryParamUtility qpu = new QueryParamUtility();
-        if(qpu.findQueryParam("users", "suppliers", uriInfo).isEmpty()) return get404ErrorMessage();
+        qpu.findQueryParam("users", "suppliers", uriInfo);
         return Response.ok(entity).build();
     }
 
@@ -623,7 +625,11 @@ public class Main {
     @Produces(MediaType.APPLICATION_JSON)
 
     @GET
-    @Path("db_project/user/requesters/resources/with")
+    @Path("db_project/user/requesters/requests/with")
+    @Produces(MediaType.APPLICATION_JSON)
+
+    @GET
+    @Path("db_project/user/requesters/requests/resources/with")
     @Produces(MediaType.APPLICATION_JSON)
     */
 
