@@ -267,9 +267,10 @@ public class Main {
     @Path("db_project/user/supplier")
     @Produces(MediaType.APPLICATION_JSON)
     public Response userNIJSupplier(){
-        LinkedHashMap<String, Object> map1 = usrs.getAllUsers();
+        LinkedHashMap<String, Object> map1 = usrs.getAttributes();
+        LinkedHashMap<String, Object> map2 = spplrs.getAttributes();
+        LinkedHashMap<String, Object> result = JLHM.joinWithEqualArg(map1, map2, "uID");
 
-        LinkedHashMap<String, Object> result = JLHM.joinWithEqualArg(map1, map2, sameKey);
         return result;
 
     }
