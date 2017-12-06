@@ -640,7 +640,7 @@ public class Main {
         return Response.ok(entity).build();
     }
 
-    @GET 
+    @GET
     @Path("db_project/nij/{entity1}/{entity2}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response entity1NIJentity2(@PathParam("entity1") String entity1, @PathParam("entity2") String entity2) {
