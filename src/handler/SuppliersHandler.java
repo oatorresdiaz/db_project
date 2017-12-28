@@ -19,10 +19,10 @@ public class SuppliersHandler {
 
     public static Response getAllSuppliers(){
         SuppliersDao dao = new SuppliersDao();
-        ArrayList<Object[]> users_list = dao.getAllSuppliers();
+        ArrayList<Object[]> suppliers_list = dao.getAllSuppliers();
         ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
-        for(int i = 0; i < users_list.size(); i++){
-            LinkedHashMap<String,Object> result = build_suppliers_dic(users_list.get(i));
+        for(int i = 0; i < suppliers_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_suppliers_dic(suppliers_list.get(i));
             result_list.add(result);
         }
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
@@ -35,9 +35,9 @@ public class SuppliersHandler {
         Object[] row = dao.getSupplierById(id);
         if(row == null) return Response.status(404).build();
         else{
-            LinkedHashMap<String, Object> user = build_suppliers_dic(row);
+            LinkedHashMap<String, Object> supplier = build_suppliers_dic(row);
             GenericEntity<LinkedHashMap<String, Object>> entity;
-            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(supplier) {};
             return Response.ok(entity).build();
         }
     }

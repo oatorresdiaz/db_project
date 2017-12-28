@@ -6,7 +6,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashMap;
 
 
 public class RequestersHandler {
@@ -20,10 +19,10 @@ public class RequestersHandler {
 
     public static Response getAllRequesters(){
         RequestersDao dao = new RequestersDao();
-        ArrayList<Object[]> users_list = dao.getAllRequesters();
+        ArrayList<Object[]> requesters_list = dao.getAllRequesters();
         ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
-        for(int i = 0; i < users_list.size(); i++){
-            LinkedHashMap<String,Object> result = build_requesters_dic(users_list.get(i));
+        for(int i = 0; i < requesters_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_requesters_dic(requesters_list.get(i));
             result_list.add(result);
         }
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
@@ -36,9 +35,9 @@ public class RequestersHandler {
         Object[] row = dao.getRequesterById(id);
         if(row == null) return Response.status(404).build();
         else{
-            LinkedHashMap<String, Object> user = build_requesters_dic(row);
+            LinkedHashMap<String, Object> requester = build_requesters_dic(row);
             GenericEntity<LinkedHashMap<String, Object>> entity;
-            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(requester) {};
             return Response.ok(entity).build();
         }
     }

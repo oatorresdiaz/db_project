@@ -10,31 +10,10 @@ import utilities.HardWiredUtility;
 @Path("/db_project")
 public class Main {
 
-    //User
-    private static UsersHandler usrs = new UsersHandler();
-    //User subcategories
-    private static AdminsHandler admns = new AdminsHandler();
-    private static SuppliersHandler spplrs = new SuppliersHandler();
-    private static RequestersHandler rqstr = new RequestersHandler();
-    //Resources
-    private static ResourcesHandler rs = new ResourcesHandler();
-    //Resources relations
-    private static InventoryHandler inv = new InventoryHandler();
-    private static RequestsHandler rqsts = new RequestsHandler();
-    //Requester and Inventory relations
-    private static ReserveHandler rsrv = new ReserveHandler();
-    private static PurchasesHandler prchs = new PurchasesHandler();
-
-    GenericEntity<LinkedHashMap<String, Object>> entity;
-
-    //HARDWIRED
-    HardWiredUtility hw = new HardWiredUtility();
-
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         System.out.println("HELLO WORLD!");
     }
-
 
     @GET
     @Produces("text/plain")
@@ -245,59 +224,53 @@ public class Main {
         return RequestersHandler.getRequesterById(id);
     }
 
-    /*@GET
+    @GET
+    @Path("/resources")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllResources() {
+        return ResourcesHandler.getAllResources();
+    }
+
+    @GET
     @Path("/resources/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getResourceById(@PathParam("id") int id) {
-        LinkedHashMap<String, Object> result = rs.getResourceById(id);
-        if (result.isEmpty()) return get404ErrorMessage();
-        GenericEntity<LinkedHashMap<String, Object>> entity =
-                new GenericEntity<LinkedHashMap<String, Object>>(result) {
-                };
-        return Response.ok(entity).build();
+        return ResourcesHandler.getResourceById(id);
+    }
+
+    @GET
+    @Path("/inventory")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllInventory() {
+        return InventoryHandler.getAllInventory();
     }
 
     @GET
     @Path("/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getInventoryById(@PathParam("id") int id) {
-        LinkedHashMap<String, Object> result = inv.getInventoryById(id);
-        if (result.isEmpty()) return get404ErrorMessage();
-        GenericEntity<LinkedHashMap<String, Object>> entity =
-                new GenericEntity<LinkedHashMap<String, Object>>(result) {
-                };
-        return Response.ok(entity).build();
+        return InventoryHandler.getInventoryById(id);
     }
 
     @GET
-    @Path("/reserve/{id}")
+    @Path("/reserves")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getReserveId(@PathParam("id") int id) {
-        LinkedHashMap<String, Object> result = rsrv.getReserveId(id);
-        if (result.isEmpty()) return get404ErrorMessage();
-        GenericEntity<LinkedHashMap<String, Object>> entity =
-                new GenericEntity<LinkedHashMap<String, Object>>(result) {
-                };
-        return Response.ok(entity).build();
+    public Response getAllReserves() {
+        return ReservesHandler.getAllReserves();
     }
 
     @GET
+    @Path("/requests")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllRequests() {
+        return RequestsHandler.getAllRequests();
+    }
+
+    /*@GET
     @Path("/purchases/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPurchasesById(@PathParam("id") int id) {
         LinkedHashMap<String, Object> result = prchs.getPurchaseById(id);
-        if (result.isEmpty()) return get404ErrorMessage();
-        GenericEntity<LinkedHashMap<String, Object>> entity =
-                new GenericEntity<LinkedHashMap<String, Object>>(result) {
-                };
-        return Response.ok(entity).build();
-    }
-
-    @GET
-    @Path("/requests/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getRequestsById(@PathParam("id") int id) {
-        LinkedHashMap<String, Object> result = rqsts.getRequestsById(id);
         if (result.isEmpty()) return get404ErrorMessage();
         GenericEntity<LinkedHashMap<String, Object>> entity =
                 new GenericEntity<LinkedHashMap<String, Object>>(result) {

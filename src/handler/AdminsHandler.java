@@ -25,10 +25,10 @@ public class AdminsHandler {
 
     public static Response getAllAdmins(){
         AdminsDao dao = new AdminsDao();
-        ArrayList<Object[]> users_list = dao.getAllAdmins();
+        ArrayList<Object[]> admins_list = dao.getAllAdmins();
         ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
-        for(int i = 0; i < users_list.size(); i++){
-            LinkedHashMap<String,Object> result = build_admins_dic(users_list.get(i));
+        for(int i = 0; i < admins_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_admins_dic(admins_list.get(i));
             result_list.add(result);
         }
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
@@ -41,9 +41,9 @@ public class AdminsHandler {
         Object[] row = dao.getAdminById(id);
         if(row == null) return Response.status(404).build();
         else{
-            LinkedHashMap<String, Object> user = build_admins_dic(row);
+            LinkedHashMap<String, Object> admin = build_admins_dic(row);
             GenericEntity<LinkedHashMap<String, Object>> entity;
-            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(admin) {};
             return Response.ok(entity).build();
         }
     }

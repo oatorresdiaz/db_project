@@ -22,6 +22,21 @@ public class RequestsHandler {
         return result;
     }
 
+    public static Response getAllRequests(){
+        RequestsDao dao = new RequestsDao();
+        ArrayList<Object[]> requests_list = dao.getAllRequests();
+        ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
+        for(int i = 0; i < requests_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_requests_dic(requests_list.get(i));
+            result_list.add(result);
+        }
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
+        entity= new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result_list) {};
+        return Response.ok(entity).build();
+    }
+
+
+
     //done 2
     public LinkedHashMap<String, Object> build_goodArg_dic(int reqID, int resID, String rqstsDate, int rqstsQty){
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();

@@ -20,7 +20,7 @@ public class HardWiredUtility {
     private static InventoryHandler inv = new InventoryHandler();
     private static RequestsHandler rqsts = new RequestsHandler();
     //Requester and Inventory relations
-    private static ReserveHandler rsrv = new ReserveHandler();
+    private static ReservesHandler rsrv = new ReservesHandler();
     private static PurchasesHandler prchs = new PurchasesHandler();
 
     private static JoinLinkedHashMaps JLHM = new JoinLinkedHashMaps();

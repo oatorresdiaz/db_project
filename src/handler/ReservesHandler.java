@@ -1,13 +1,13 @@
 package handler;
 
-import dao.ReserveDao;
+import dao.ReservesDao;
 
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class ReserveHandler {
+public class ReservesHandler {
 
     public static LinkedHashMap<String, Object> build_reserve_dic(Object[] row) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
@@ -18,6 +18,20 @@ public class ReserveHandler {
         result.put("resQty"      , row[4]);         //Quantity of the resource being reserved
         return result;
     }
+
+    public static Response getAllReserves(){
+        ReservesDao dao = new ReservesDao();
+        ArrayList<Object[]> reserves_list = dao.getAllReserves();
+        ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
+        for(int i = 0; i < reserves_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_reserve_dic(reserves_list.get(i));
+            result_list.add(result);
+        }
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
+        entity= new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result_list) {};
+        return Response.ok(entity).build();
+    }
+
 
     private LinkedHashMap<String,Object> build_goodArg_dic(int reqID, int invID, String resDate, String resExpDate, int resQty) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
