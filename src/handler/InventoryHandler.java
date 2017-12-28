@@ -1,7 +1,6 @@
 package handler;
 
 import dao.InventoryDao;
-import utilities.DateCompound;
 
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
@@ -36,43 +35,6 @@ public class InventoryHandler {
         return result;
     }
 
-    public static ArrayList<LinkedHashMap<String, Object>> getAllInventory(){
-        InventoryDao inv = new InventoryDao();
-        ArrayList<Object[]> invList = inv.getAllInventories();
-        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
-        for(int i = 0; i < invList.size(); i++){
-            resultList.add(build_inventory_dic(invList.get(i)));
-        }
-        return resultList;
-    }
-
-    public static LinkedHashMap<String, Object> getInventoryById(int id){
-        InventoryDao inv = new InventoryDao();
-        ArrayList<Object[]> invList = inv.getAllInventories();
-        return build_inventory_dic(invList.get(id));
-    }
-
-    public ArrayList<LinkedHashMap<String,Object>> getInventoryBySupplierId(int id) {
-        InventoryDao inv = new InventoryDao();
-        ArrayList<Object[]> invList = inv.getInventoryBySupplierId(id);
-        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
-        for(int i = 0; i < invList.size(); i++){
-            resultList.add(build_inventory_dic(invList.get(i)));
-        }
-        return resultList;
-
-    }
-
-    public ArrayList<LinkedHashMap<String, Object>> getInventoryWithArg(int invID, int suppID, String invDate, int invQty, int invPrice, int invReserved) {
-        LinkedHashMap<String, Object> argDic = build_goodArg_dic(invID, suppID, invDate, invQty, invPrice, invReserved);
-        InventoryDao inv = new InventoryDao();
-        ArrayList<Object[]> invList = inv.getInventoryWithArg(argDic);
-        ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
-        for(int i = 0; i < invList.size(); i++){
-            resultList.add(build_inventory_dic(invList.get(i)));
-        }
-        return resultList;
-    }
 
 
 }

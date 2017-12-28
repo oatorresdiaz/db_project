@@ -2,7 +2,6 @@ package handler;
 
 import dao.InventoryDao;
 import dao.RequestsDao;
-import utilities.DateCompound;
 
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
@@ -35,7 +34,7 @@ public class RequestsHandler {
     }
 
     //done 3
-    public static ArrayList<LinkedHashMap<String, Object>> getAllRequests(){
+    /*public static ArrayList<LinkedHashMap<String, Object>> getAllRequests(){
         ArrayList<Object[]> rqstsList = dao.RequestsDao.getAllRequests();
         ArrayList<LinkedHashMap<String, Object>> resultList = new ArrayList<>();
         for(int i = 0; i < rqstsList.size(); i++){
@@ -72,7 +71,7 @@ public class RequestsHandler {
             resultList.add(build_requests_dic(rqstsList.get(i)));
         }
         return resultList;
-    }
+    }*/
 
 
 }

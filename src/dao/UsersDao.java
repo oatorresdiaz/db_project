@@ -1,5 +1,10 @@
 package dao;
 
+import utilities.DateUtility;
+
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.sql.*;
@@ -7,41 +12,63 @@ import java.sql.*;
 public class UsersDao {
 
     public static final String driver = "org.postgresql.Driver";
-    public static final String url = "jdbc:postgresql://localhost:5432/dbTest2";
+    public static final String url = "jdbc:postgresql://localhost:5432/db_project";
     public static final String username = "postgres";
     public static final String password = "Schultz123";
 
-    //FOR TESTING PURPOSES
+
     public static ArrayList<Object[]> getAllUsers(){
-
-        ArrayList<Object[]> testUsers = new ArrayList<Object[]>();
-
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
         try{
             Class.forName(driver);
-            Connection con = DriverManager.getConnection(url, username, password);
-            PreparedStatement stmt = con.prepareStatement("select * from users");
-            ResultSet Rs = stmt.executeQuery();
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from users");
+            ResultSet Rs = query.executeQuery();
             while(Rs.next()){
-                Object[] row = new Object[2];
+                Object[] row = new Object[11];
                 row[0] = Rs.getInt(1);
                 row[1] = Rs.getString(2);
-                testUsers.add(row);
-                System.out.println(Rs.getInt(1) + " " + Rs.getString(2));
+                row[2] = Rs.getString(3);
+                row[3] = Rs.getString(4);
+                row[4] = DateUtility.dateToString(Rs.getDate(5));
+                row[5] = Rs.getString(6);
+                row[6] = Rs.getString(7);
+                row[7] = Rs.getString(8);
+                row[8] = Rs.getString(9);
+                row[9] = Rs.getString(10);
+                row[10] = Rs.getString(11);
+                result.add(row);
             }
         } catch(Exception ex){
             System.out.println(ex.getMessage());
         }
+        return result;
+    }
 
-        /*Object[] orlando = new Object[10];
-        orlando[0] = 0;
-        orlando[1] = "Orlando";
-        Object[] pedro = new Object[10];
-        pedro[0] = 1;
-        pedro[1] = "Pedro";
-        ArrayList<Object[]> testUsers = new ArrayList<Object[]>();
-        testUsers.add(orlando);
-        testUsers.add(pedro);*/
-        return testUsers;
+    public static Object[] getUserById(int id){
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from users where uid = " + id);
+            ResultSet Rs = query.executeQuery();
+            if(!Rs.next()) return null;
+            Object[] row = new Object[11];
+            row[0] = Rs.getInt(1);
+            row[1] = Rs.getString(2);
+            row[2] = Rs.getString(3);
+            row[3] = Rs.getString(4);
+            row[4] = DateUtility.dateToString(Rs.getDate(5));
+            row[5] = Rs.getString(6);
+            row[6] = Rs.getString(7);
+            row[7] = Rs.getString(8);
+            row[8] = Rs.getString(9);
+            row[9] = Rs.getString(10);
+            row[10] = Rs.getString(11);
+            return row;
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     public ArrayList<Object[]> getUsersWithArg(LinkedHashMap<String, Object> argsDic) {

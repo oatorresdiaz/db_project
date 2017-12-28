@@ -1,22 +1,55 @@
 package dao;
 
+import utilities.DateUtility;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class AdminsDao {
 
-    //FOR TESTING PURPOSES
+    public static final String driver = "org.postgresql.Driver";
+    public static final String url = "jdbc:postgresql://localhost:5432/db_project";
+    public static final String username = "postgres";
+    public static final String password = "Schultz123";
+
     public static ArrayList<Object[]> getAllAdmins() {
-        Object[] admin1 = new Object[2];
-        admin1[0] = 0;
-        admin1[1] = 0;
-        Object[] admin2 = new Object[2];
-        admin2[0] = 1;
-        admin2[1] = 2;
-        ArrayList<Object[]> testAdmins = new ArrayList<Object[]>();
-        testAdmins.add(admin1);
-        testAdmins.add(admin2);
-        return testAdmins;
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from admins");
+            ResultSet Rs = query.executeQuery();
+            while(Rs.next()){
+                Object[] row = new Object[2];
+                row[0] = Rs.getInt(1);
+                row[1] = Rs.getInt(2);
+                result.add(row);
+            }
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
+    public static Object[] getAdminById(int id){
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from admins where admID = " + id);
+            ResultSet Rs = query.executeQuery();
+            if(!Rs.next()) return null;
+            Object[] row = new Object[2];
+            row[0] = Rs.getInt(1);
+            row[1] = Rs.getInt(2);
+            return row;
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     public ArrayList<Object[]> getAminsWithArg(LinkedHashMap<String, Object> argsDic) {

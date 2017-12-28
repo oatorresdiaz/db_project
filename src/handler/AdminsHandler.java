@@ -16,30 +16,39 @@ public class AdminsHandler {
         return result;
     }
 
-    private LinkedHashMap<String,Object> build_goodArg_dic(int adminID, int uID) {
+    /*private LinkedHashMap<String,Object> build_goodArg_dic(int adminID, int uID) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         if(adminID != -1) result.put("adminID", adminID);
         if(uID != -1) result.put("uID", uID);
         return result;
-    }
+    }*/
 
-    public static ArrayList<LinkedHashMap<String, Object>> getAllAdmins(){
-        AdminsDao adms = new AdminsDao();
-        ArrayList<Object[]> admsList = adms.getAllAdmins();
-        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < admsList.size(); i++){
-            result.add(build_admins_dic(admsList.get(i)));
+    public static Response getAllAdmins(){
+        AdminsDao dao = new AdminsDao();
+        ArrayList<Object[]> users_list = dao.getAllAdmins();
+        ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
+        for(int i = 0; i < users_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_admins_dic(users_list.get(i));
+            result_list.add(result);
         }
-        return result;
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
+        entity= new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result_list) {};
+        return Response.ok(entity).build();
     }
 
-    public static LinkedHashMap<String, Object> getAdminById(int id){
-        AdminsDao adms = new AdminsDao();
-        ArrayList<Object[]> admsList = adms.getAllAdmins();
-        return build_admins_dic(admsList.get(id));
+    public static Response getAdminById(int id){
+        AdminsDao dao = new AdminsDao();
+        Object[] row = dao.getAdminById(id);
+        if(row == null) return Response.status(404).build();
+        else{
+            LinkedHashMap<String, Object> user = build_admins_dic(row);
+            GenericEntity<LinkedHashMap<String, Object>> entity;
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            return Response.ok(entity).build();
+        }
     }
 
-    public static ArrayList<LinkedHashMap<String, Object>> getAdminsNaturalJoinUser(){
+    /*public static ArrayList<LinkedHashMap<String, Object>> getAdminsNaturalJoinUser(){
         UsersHandler userHandler = new UsersHandler();
         ArrayList<LinkedHashMap<String, Object>> users = userHandler.getAllUsers();
         ArrayList<LinkedHashMap<String, Object>> admins = getAllAdmins();
@@ -63,5 +72,5 @@ public class AdminsHandler {
             resultList.add(build_admins_dic(admnsList.get(i)));
         }
         return resultList;
-    }
+    }*/
 }

@@ -29,7 +29,7 @@ public class ReserveHandler {
         return result;
     }
 
-    public static ArrayList<LinkedHashMap<String, Object>> getAllReserves() {
+    /*public static ArrayList<LinkedHashMap<String, Object>> getAllReserves() {
         ReserveDao rsrv = new ReserveDao();
         ArrayList<Object[]> rsrvList = rsrv.getAllReservations();
         ArrayList<LinkedHashMap<String, Object>> result = new ArrayList<>();
@@ -88,5 +88,5 @@ public class ReserveHandler {
             resultList.add(build_reserve_dic(rsrvList.get(i)));
         }
         return resultList;
-    }
+    }*/
 }

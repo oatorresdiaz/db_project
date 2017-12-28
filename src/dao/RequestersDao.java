@@ -1,22 +1,53 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class RequestersDao {
 
-    //FOR TESTING PURPOSES
+    public static final String driver = "org.postgresql.Driver";
+    public static final String url = "jdbc:postgresql://localhost:5432/db_project";
+    public static final String username = "postgres";
+    public static final String password = "Schultz123";
+
     public static ArrayList<Object[]> getAllRequesters() {
-        Object[] req1 = new Object[4];
-        req1[0] = 0;
-        req1[1] = 0;
-        Object[] req2 = new Object[4];
-        req2[0] = 1;
-        req2[1] = 3;
-        ArrayList<Object[]> testRequesters = new ArrayList<Object[]>();
-        testRequesters.add(req1);
-        testRequesters.add(req2);
-        return testRequesters;
+        ArrayList<Object[]> result = new ArrayList<Object[]>();
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from requesters");
+            ResultSet Rs = query.executeQuery();
+            while(Rs.next()){
+                Object[] row = new Object[2];
+                row[0] = Rs.getInt(1);
+                row[1] = Rs.getInt(2);
+                result.add(row);
+            }
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
+    public static Object[] getRequesterById(int id){
+        try{
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, username, password);
+            PreparedStatement query = conn.prepareStatement("select * from requesters where reqID = " + id);
+            ResultSet Rs = query.executeQuery();
+            if(!Rs.next()) return null;
+            Object[] row = new Object[2];
+            row[0] = Rs.getInt(1);
+            row[1] = Rs.getInt(2);
+            return row;
+        } catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     public ArrayList<Object[]> getRequestersWithArg(LinkedHashMap<String, Object> argsDic) {

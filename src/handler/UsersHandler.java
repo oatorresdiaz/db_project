@@ -4,33 +4,33 @@ import dao.UsersDao;
 
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 public class UsersHandler {
-    public static LinkedHashMap<String, Object> result;
-
 
     public static LinkedHashMap<String, Object> build_users_dict(Object[] row){
-        result = new LinkedHashMap<String, Object>();
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         result.put("uID", row[0]);
-        result.put("uFName", row[1]);
-        /*result.put("uLName", row[2]);
+        result.put("uFname", row[1]);
+        result.put("uLname", row[2]);
         result.put("uGender", row[3]);
         result.put("uBirthDate", row[4]);
-        result.put("uRegion", row[5]);
-        result.put("uPhoneNumber", row[6]);
-        result.put("uAddress", row[7]);
-        result.put("username", row[8]);
-        result.put("password", row[9]);*/
+        result.put("uCity", row[5]);
+        result.put("uStreet", row[6]);
+        result.put("uCountry", row[7]);
+        result.put("uZipCode", row[8]);
+        result.put("username", row[9]);
+        result.put("password", row[10]);
         return result;
     }
 
-    public static LinkedHashMap<String, Object> getAttributes(){
+    /*public static LinkedHashMap<String, Object> getAttributes(){
         return result;
-    }
+    }*/
 
-    private LinkedHashMap<String,Object> build_goodArg_dic(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
+    /*private LinkedHashMap<String,Object> build_goodArg_dic(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         if(uID != -1) result.put("uID", uID);
         if(!uFName.equals("UNDECLARED")) result.put("uFName", uFName);
@@ -44,25 +44,34 @@ public class UsersHandler {
         if(!password.equals("UNDECLARED")) result.put("password", password);
 
         return result;
-    }
+    }*/
 
-    public static ArrayList<LinkedHashMap<String,Object>> getAllUsers(){
-        UsersDao usrs = new UsersDao();
-        ArrayList<Object[]> usrsList = usrs.getAllUsers();
-        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < usrsList.size(); i++){
-            result.add(build_users_dict(usrsList.get(i)));
+    public static Response getAllUsers(){
+        UsersDao dao = new UsersDao();
+        ArrayList<Object[]> users_list = dao.getAllUsers();
+        ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
+        for(int i = 0; i < users_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_users_dict(users_list.get(i));
+            result_list.add(result);
         }
-        return result;
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
+        entity= new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result_list) {};
+        return Response.ok(entity).build();
     }
 
-    public static LinkedHashMap<String, Object> getUserById(int id){
-        UsersDao usrs = new UsersDao();
-        ArrayList<Object[]> usrsList = usrs.getAllUsers();
-        return build_users_dict(usrsList.get(id));
+    public static Response getUserById(int id){
+        UsersDao dao = new UsersDao();
+        Object[] row = dao.getUserById(id);
+        if(row == null) return Response.status(404).build();
+        else{
+            LinkedHashMap<String, Object> user = build_users_dict(row);
+            GenericEntity<LinkedHashMap<String, Object>> entity;
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            return Response.ok(entity).build();
+        }
     }
 
-    public ArrayList<LinkedHashMap<String, Object>> getUsersWithArg(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
+    /*public ArrayList<LinkedHashMap<String, Object>> getUsersWithArg(int uID, String uFName, String uLName, String uGender, String uBirthDate, String uRegion, int uPhoneNumber, String uAddress, String username, String password) {
         LinkedHashMap<String, Object> argDic = build_goodArg_dic(uID, uFName, uLName, uGender, uBirthDate, uRegion, uPhoneNumber, uAddress, username, password);
         UsersDao users = new UsersDao();
         ArrayList<Object[]> usersList = users.getUsersWithArg(argDic);
@@ -71,6 +80,6 @@ public class UsersHandler {
             resultList.add(build_users_dict(usersList.get(i)));
         }
         return resultList;
-    }
+    }*/
 
 }

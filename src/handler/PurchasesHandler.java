@@ -47,7 +47,7 @@ public class PurchasesHandler {
     }
 
 
-    public static ArrayList<LinkedHashMap<String, Object>> getRequestersNatJPurchasesNatJInventory(){
+    /*public static ArrayList<LinkedHashMap<String, Object>> getRequestersNatJPurchasesNatJInventory(){
         RequestersHandler requesterH = new RequestersHandler();
         InventoryHandler inventoryH = new InventoryHandler();
 
@@ -80,5 +80,5 @@ public class PurchasesHandler {
             resultList.add(build_purchases_dic(prchsList.get(i)));
         }
         return resultList;
-    }
+    }*/
 }

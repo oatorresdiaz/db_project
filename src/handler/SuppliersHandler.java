@@ -7,23 +7,42 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-/**
- * Handler for the supplier entity
- */
 public class SuppliersHandler {
     public static LinkedHashMap<String, Object> result;
 
-    /**
-     * Builds the schema for the entity
-     * @param row - value pertaining to the key (attribute) of the entity
-     * @return - LinkedHashMap of the attributes
-     */
     public static LinkedHashMap<String, Object> build_suppliers_dic(Object[] row){
         result = new LinkedHashMap<String, Object>();
         result.put("suppID", row[0]);
         result.put("uID", row[1]);
         return result;
     }
+
+    public static Response getAllSuppliers(){
+        SuppliersDao dao = new SuppliersDao();
+        ArrayList<Object[]> users_list = dao.getAllSuppliers();
+        ArrayList<LinkedHashMap<String,Object>> result_list = new ArrayList<>();
+        for(int i = 0; i < users_list.size(); i++){
+            LinkedHashMap<String,Object> result = build_suppliers_dic(users_list.get(i));
+            result_list.add(result);
+        }
+        GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity;
+        entity= new GenericEntity<ArrayList<LinkedHashMap<String,Object>>>(result_list) {};
+        return Response.ok(entity).build();
+    }
+
+    public static Response getSupplierById(int id){
+        SuppliersDao dao = new SuppliersDao();
+        Object[] row = dao.getSupplierById(id);
+        if(row == null) return Response.status(404).build();
+        else{
+            LinkedHashMap<String, Object> user = build_suppliers_dic(row);
+            GenericEntity<LinkedHashMap<String, Object>> entity;
+            entity= new GenericEntity<LinkedHashMap<String,Object>>(user) {};
+            return Response.ok(entity).build();
+        }
+    }
+
+
 
     /**
      * Gets the LinkedHashMap of the entity
@@ -44,31 +63,6 @@ public class SuppliersHandler {
         if(suppID != -1) result.put("suppID", suppID);
         if(uID != -1) result.put("uID", uID);
         return result;
-    }
-
-    /**
-     * Get all the suppliers
-     * @return - return an ArrayList of all the suppliers in the database
-     */
-    public static ArrayList<LinkedHashMap<String, Object>> getAllSuppliers(){
-        SuppliersDao spplrs = new SuppliersDao();
-        ArrayList<Object[]> spplrsList = spplrs.getAllSuppliers();
-        ArrayList<LinkedHashMap<String,Object>> result = new ArrayList<>();
-        for(int i = 0; i < spplrsList.size(); i++){
-            result.add(build_suppliers_dic(spplrsList.get(i)));
-        }
-        return result;
-    }
-
-    /**
-     * Get a supplier from the ArrayList by it's ID
-     * @param id - index in the ArrayList
-     * @return - return the supplier with the specified ID
-     */
-    public static LinkedHashMap<String, Object> getSupplierById(int id){
-        SuppliersDao spplrs = new SuppliersDao();
-        ArrayList<Object[]> spplrsList = spplrs.getAllSuppliers();
-        return build_suppliers_dic(spplrsList.get(id));
     }
 
     /**
