@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 import utilities.HardWiredUtility;
 import utilities.QueryParamUtility;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 //Main URI path
 @Path("/")
@@ -29,9 +34,16 @@ public class Main {
     //HARDWIRED
     HardWiredUtility hw = new HardWiredUtility();
 
-    public static void main(String[] args) {
+    public static final String driver = "org.postgresql.Driver";
+    public static final String url = "jdbc:postgresql://localhost:5432/dbTest2";
+    public static final String username = "postgres";
+    public static final String password = "Schultz123";
 
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        System.out.println("HELLO WORLD!");
     }
+
 
     @GET
     @Produces("text/plain")
@@ -50,6 +62,7 @@ public class Main {
     @Path("db_project/search/{entity1}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response entity1(@PathParam("entity1") String entity1) {
+
         ArrayList<LinkedHashMap<String, Object>> list =  getAll(entity1);
         if(list.isEmpty()) return get404ErrorMessage();
         GenericEntity<ArrayList<LinkedHashMap<String, Object>>> entity = GE(list);

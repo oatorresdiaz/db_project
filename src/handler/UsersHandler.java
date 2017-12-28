@@ -15,14 +15,14 @@ public class UsersHandler {
         result = new LinkedHashMap<String, Object>();
         result.put("uID", row[0]);
         result.put("uFName", row[1]);
-        result.put("uLName", row[2]);
+        /*result.put("uLName", row[2]);
         result.put("uGender", row[3]);
         result.put("uBirthDate", row[4]);
         result.put("uRegion", row[5]);
         result.put("uPhoneNumber", row[6]);
         result.put("uAddress", row[7]);
         result.put("username", row[8]);
-        result.put("password", row[9]);
+        result.put("password", row[9]);*/
         return result;
     }
 
@@ -42,6 +42,7 @@ public class UsersHandler {
         if(!uAddress.equals("UNDECLARED")) result.put("uAddress", uAddress);
         if(!username.equals("UNDECLARED")) result.put("username", username);
         if(!password.equals("UNDECLARED")) result.put("password", password);
+
         return result;
     }
 
